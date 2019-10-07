@@ -4,9 +4,9 @@
 #include"../../../controls/port_widget.hpp"
 namespace Mather {
     class ConnectionGraphics:public QGraphicsLineItem{
-    private:
-        PortWidget* src_ellipse = nullptr;
-        PortWidget* dst_ellipse = nullptr;
+//    private:
+//        PortWidget* src_ellipse = nullptr;
+//        PortWidget* dst_ellipse = nullptr;
     public:
         virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr) override{
             painter->setPen(this->pen());
@@ -22,19 +22,19 @@ namespace Mather {
             painter->drawPath(path);
         }
 
-        void SetSrcEllipse(PortWidget*const src_ellipse){
-            this->src_ellipse = src_ellipse;
-        }
-        void SetDstEllipse(PortWidget*const dst_ellipse){
-            this->dst_ellipse = dst_ellipse;
-        }
+//        void SetSrcEllipse(PortWidget*const src_ellipse){
+//            this->src_ellipse = src_ellipse;
+//        }
+//        void SetDstEllipse(PortWidget*const dst_ellipse){
+//            this->dst_ellipse = dst_ellipse;
+//        }
 
-        PortWidget* GetSrcEllipse(){
-            return this->src_ellipse;
-        }
-        PortWidget* GetDstEllipse(){
-            return this->dst_ellipse;
-        }
+//        PortWidget* GetSrcEllipse(){
+//            return this->src_ellipse;
+//        }
+//        PortWidget* GetDstEllipse(){
+//            return this->dst_ellipse;
+//        }
 
         void SetP1(const QPointF& p1){
             auto l  = this->line();

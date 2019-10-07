@@ -17,7 +17,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     test/main.cpp
 
-INCLUDEPATH += C:\Users\35974\source\repos\Noder\Noder\src
+INCLUDEPATH += C:\Users\35974\source\repos\Noder
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -27,15 +27,26 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     src/applications/mather/controller/application_controller.hpp \
     src/applications/mather/controller/connection_controller.hpp \
+    src/applications/mather/controller/node_controller_factory.hpp \
+    src/applications/mather/controller/op_node_controller.hpp \
+    src/applications/mather/controller/port_controller.hpp \
+    src/applications/mather/controller/value_node_controller.hpp \
     src/applications/mather/model/application.hpp \
     src/applications/mather/view/connection_graphics.hpp \
     src/applications/mather/view/main_view.hpp \
+    src/applications/mather/view/node_graphics_factory.hpp \
     src/applications/mather/view/op_node_graphics.hpp \
     src/applications/mather/view/value_node_graphics.hpp \
+    src/controls/custom_label.hpp \
     src/controls/double_spin_box.hpp \
     src/controls/int64_spin_box.hpp \
     src/controls/port_widget.hpp \
     src/controls/spin_box_base.hpp \
-    src/core/node_graphics_base.hpp
+    src/core/graphics_controller.hpp \
+    src/core/node_controller.hpp \
+    src/core/node_graphics.hpp
+
+RESOURCES += \
+    resources.qrc
 
 

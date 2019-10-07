@@ -3,5 +3,5 @@
 using namespace Mather;
 int main(int argc, char *argv[])
 {
-    return ApplicationController::Run(argc, argv);
+    return ApplicationController::GetInstance()->Run(argc, argv);
 }

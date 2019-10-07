@@ -56,6 +56,10 @@ public:
         right_click_menu->addAction(tr("Delete"));
         connect(this, &QWidget::customContextMenuRequested,
                 this, &SpinBoxBase::OnRightClick);
+
+        auto pal = this->palette();
+        pal.setColor(QPalette::Background, Qt::transparent);
+        this->setPalette(pal);
     }
     void paintEvent(QPaintEvent* event) override {
         QPainter painter(this);
@@ -645,6 +649,7 @@ public:
     virtual void StepDown(){
 
     }
+
     virtual ~SpinBoxBase()override{
         cursor_timer->stop();
         delete cursor_timer;

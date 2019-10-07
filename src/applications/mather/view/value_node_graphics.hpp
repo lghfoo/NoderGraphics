@@ -5,11 +5,13 @@
 #include<QGraphicsGridLayout>
 #include<QGraphicsSceneMouseEvent>
 #include<QGraphicsProxyWidget>
+#include "src/controls/custom_label.hpp"
 #include"../../../controls/int64_spin_box.hpp"
 #include"../../../controls/port_widget.hpp"
-#include"../../../core/node_graphics_base.hpp"
+#include"../../../core/node_graphics.hpp"
 namespace Mather {
-    class Int64ValueNodeGraphics: public NoderGraphics::NodeGraphicsBase{
+    using namespace NoderGraphics;
+    class Int64ValueNodeGraphics: public NodeGraphics{
         Q_OBJECT
     protected:
         QVariant itemChange(GraphicsItemChange change, const QVariant &value)
@@ -22,9 +24,6 @@ namespace Mather {
         }
     public:
         Int64ValueNodeGraphics(){
-
-            this->setFlag(QGraphicsItem::GraphicsItemFlag::ItemIsMovable);
-            this->setFlag(QGraphicsItem::GraphicsItemFlag::ItemIsSelectable);
 
             node_name_label->setAlignment(Qt::AlignCenter);
             input_name_label->setAlignment(Qt::AlignVCenter | Qt::AlignLeft);
@@ -45,11 +44,28 @@ namespace Mather {
             main_layout->addItem(output_ellipse_proxy_widget, 3, 2, 1, 1, Qt::AlignCenter);
 
             this->setLayout(main_layout);
+
+            connect(input_spin_box, &Int64SpinBox::ValueChanged, this, &Int64ValueNodeGraphics::InputValueChanged);
         }
+
+        void SetInputValue(long long value){
+            input_spin_box->SetValue(value);
+        }
+
+        PortWidget* GetInputPortGraphics(){
+            return dynamic_cast<PortWidget*>(input_ellipse_proxy_widget->widget());
+        }
+
+        PortWidget* GetOutputPortGraphics(){
+            return dynamic_cast<PortWidget*>(output_ellipse_proxy_widget->widget());
+        }
+
+    signals:
+        void InputValueChanged(long long);
     private:
-        QLabel* node_name_label = new QLabel("Int64 Value Node");
-        QLabel* input_name_label = new QLabel("Input");
-        QLabel* output_name_label = new QLabel("Output");
+        Label* node_name_label = new Label("Int64 Value Node");
+        Label* input_name_label = new Label("Input");
+        Label* output_name_label = new Label("Output");
         PortWidget* input_ellipse = new PortWidget;
         PortWidget* output_ellipse = new PortWidget;
         Int64SpinBox* input_spin_box = new Int64SpinBox;
@@ -62,16 +78,5 @@ namespace Mather {
         QGraphicsProxyWidget* input_spin_box_proxy_widget = new QGraphicsProxyWidget;
 
         QGraphicsGridLayout* main_layout = new QGraphicsGridLayout;
-    public:
-//        void mousePressEvent(QGraphicsSceneMouseEvent* event)override{
-
-//            if(nullptr){
-//                qDebug()<<"xxx";
-//            }
-//            else{
-//                qDebug()<<"item is null";
-//            }
-//            QGraphicsWidget::mousePressEvent(event);
-//        }
     };
 }

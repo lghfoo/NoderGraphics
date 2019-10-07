@@ -11,10 +11,19 @@ public:
         return step_text.toLongLong();
     }
     virtual void ValueUp()override{
-        value_text = QString::number(value_text.toLongLong() + GetStep());
+        auto value = value_text.toLongLong() + GetStep();
+        value_text = QString::number(value);
+        emit ValueChanged(value);
     }
     virtual void ValueDown()override{
-        value_text = QString::number(value_text.toLongLong() - GetStep());
+        auto value = value_text.toLongLong() - GetStep();
+        value_text = QString::number(value);
+        emit ValueChanged(value);
+    }
+    virtual void SetValue(long long value){
+        value_text = QString::number(value);
+        emit ValueChanged(value);
+        SpinBoxBase::update();
     }
     virtual void StepUp()override{
         step_text = QString::number(step_text.toLongLong() + 1);
@@ -22,6 +31,8 @@ public:
     virtual void StepDown()override{
         step_text = QString::number(step_text.toLongLong() - 1);
     }
+signals:
+    void ValueChanged(long long);
 private:
 };
 

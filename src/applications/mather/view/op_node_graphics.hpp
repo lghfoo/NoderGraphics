@@ -4,11 +4,13 @@
 #include<QGraphicsEllipseItem>
 #include<QGraphicsGridLayout>
 #include<QGraphicsProxyWidget>
+#include "src/controls/custom_label.hpp"
 #include"../../../controls/int64_spin_box.hpp"
 #include"../../../controls/port_widget.hpp"
-#include"../../../core/node_graphics_base.hpp"
+#include"../../../core/node_graphics.hpp"
 namespace Mather {
-    class Int64AddNodeGraphics: public NoderGraphics::NodeGraphicsBase{
+    using namespace NoderGraphics;
+    class Int64AddNodeGraphics: public NoderGraphics::NodeGraphics{
         Q_OBJECT
     protected:
         QVariant itemChange(GraphicsItemChange change, const QVariant &value)
@@ -23,8 +25,7 @@ namespace Mather {
     public:
         Int64AddNodeGraphics(){
 
-            this->setFlag(QGraphicsItem::GraphicsItemFlag::ItemIsMovable);
-            this->setFlag(QGraphicsItem::GraphicsItemFlag::ItemIsSelectable);
+
 
             node_name_label->setAlignment(Qt::AlignCenter);
             lhs_name_label->setAlignment(Qt::AlignVCenter | Qt::AlignLeft);
@@ -52,10 +53,10 @@ namespace Mather {
             this->setLayout(main_layout);
         }
     private:
-        QLabel* node_name_label = new QLabel("Int64 Add Node");
-        QLabel* lhs_name_label = new QLabel("LHS");
-        QLabel* rhs_name_label = new QLabel("RHS");
-        QLabel* output_name_label = new QLabel("Output");
+        Label* node_name_label = new Label("Int64 Add Node");
+        Label* lhs_name_label = new Label("LHS");
+        Label* rhs_name_label = new Label("RHS");
+        Label* output_name_label = new Label("Output");
         PortWidget* lhs_ellipse = new PortWidget;
         PortWidget* rhs_ellipse = new PortWidget;
         PortWidget* output_ellipse = new PortWidget;

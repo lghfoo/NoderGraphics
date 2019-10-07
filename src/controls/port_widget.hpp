@@ -11,18 +11,22 @@
 #include<QDebug>
 #include<QMimeData>
 #include<functional>
-namespace Mather {
+#include"../core/node_graphics.hpp"
+namespace NoderGraphics {
     class PortWidget:public QWidget{
         Q_OBJECT
     public:
         using DragBeginHandler = std::function<void(PortWidget*)>;
         using DropHandler = std::function<void(PortWidget*)>;
-        using PosChangedHandler = std::function<void(void)>;
+        using PosChangedHandler = std::function<void(const QPoint&)>;
         using PPosChangedHandler = PosChangedHandler*;
         using IgnoreDropHandler = std::function<void(void)>;
         PortWidget(qreal radius = 6.0){
             this->SetRadius(radius);
             this->setAcceptDrops(true);
+            QPalette palette = this->palette();
+            palette.setColor(QPalette::Background, Qt::transparent);
+            this->setPalette(palette);
         }
         void paintEvent(QPaintEvent* event) override{
             QPainter painter(this);
@@ -57,10 +61,13 @@ namespace Mather {
         qreal radius;
         qreal padding=5.0;
         QList<PPosChangedHandler> pos_changed_handlers = {};
+        DragBeginHandler on_drag_begin_handler = nullptr;
+        DropHandler on_drop_handler = nullptr;
+        IgnoreDropHandler ignore_drop_handler = nullptr;
     public:
         void NotifyPosChanged(){
             for(auto handler : pos_changed_handlers){
-                (*handler)();
+                (*handler)(this->GetCenterOnScreen());
             }
         }
         void dragEnterEvent(QDragEnterEvent* event)override{
@@ -94,31 +101,28 @@ namespace Mather {
 
         }
 
-        static DragBeginHandler& GetDragBeginHandler(){
-            static DragBeginHandler on_drag_begin_handler = nullptr;
+        DragBeginHandler& GetDragBeginHandler(){
             return on_drag_begin_handler;
         }
 
-        static DropHandler& GetDropHandler(){
-            static DropHandler on_drop_handler = nullptr;
+        DropHandler& GetDropHandler(){
             return on_drop_handler;
         }
 
-        static IgnoreDropHandler& GetIgnoreDropHandler(){
-            static IgnoreDropHandler ignore_drop_handler = nullptr;
+        IgnoreDropHandler& GetIgnoreDropHandler(){
             return ignore_drop_handler;
         }
 
-        static void SetDragBeginHandler(const DragBeginHandler& handler){
-            GetDragBeginHandler() = handler;
+        void SetDragBeginHandler(const DragBeginHandler& handler){
+            this->on_drag_begin_handler = handler;
         }
 
-        static void SetDropHandler(const DropHandler& handler){
-            GetDropHandler() = handler;
+        void SetDropHandler(const DropHandler& handler){
+            this->on_drop_handler = handler;
         }
 
-        static void SetIgnoreDropHandler(const IgnoreDropHandler& handler){
-            GetIgnoreDropHandler() = handler;
+        void SetIgnoreDropHandler(const IgnoreDropHandler& handler){
+            this->ignore_drop_handler = handler;
         }
     };
 }
