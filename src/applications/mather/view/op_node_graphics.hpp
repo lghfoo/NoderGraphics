@@ -52,6 +52,18 @@ namespace Mather {
 //            main_layout->addItem(rhs_spin_box_proxy_widget, 2, 0, 1, 2);
             this->setLayout(main_layout);
         }
+
+        PortWidget* GetLhsPortGraphics(){
+            return dynamic_cast<PortWidget*>(lhs_ellipse_proxy_widget->widget());
+        }
+
+        PortWidget* GetRhsPortGraphics(){
+            return dynamic_cast<PortWidget*>(rhs_ellipse_proxy_widget->widget());
+        }
+
+        PortWidget* GetOutputPortGraphics(){
+            return dynamic_cast<PortWidget*>(output_ellipse_proxy_widget->widget());
+        }
     private:
         Label* node_name_label = new Label("Int64 Add Node");
         Label* lhs_name_label = new Label("LHS");

@@ -26,22 +26,26 @@ namespace Mather {
         Int64ValueNodeGraphics(){
 
             node_name_label->setAlignment(Qt::AlignCenter);
-            input_name_label->setAlignment(Qt::AlignVCenter | Qt::AlignLeft);
-            output_name_label->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
+//            input_name_label->setAlignment(Qt::AlignVCenter | Qt::AlignLeft);
+//            output_name_label->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
 
             node_name_label_proxy_widget->setWidget(node_name_label);
-            input_name_label_proxy_widget->setWidget(input_name_label);
-            output_name_label_proxy_widget->setWidget(output_name_label);
+//            input_name_label_proxy_widget->setWidget(input_name_label);
+//            output_name_label_proxy_widget->setWidget(output_name_label);
             input_ellipse_proxy_widget->setWidget(input_ellipse);
             output_ellipse_proxy_widget->setWidget(output_ellipse);
             input_spin_box_proxy_widget->setWidget(input_spin_box);
 
             main_layout->addItem(node_name_label_proxy_widget, 0, 0, 1, 3, Qt::AlignCenter);
+//            main_layout->addItem(input_ellipse_proxy_widget, 1, 0, 1, 1, Qt::AlignCenter);
+//            main_layout->addItem(input_name_label_proxy_widget, 1, 1, 1, 1, Qt::AlignCenter);
+//            main_layout->addItem(input_spin_box_proxy_widget, 2, 1, 1, 1, Qt::AlignCenter);
+//            main_layout->addItem(output_name_label_proxy_widget, 3, 1, 1, 1, Qt::AlignCenter);
+//            main_layout->addItem(output_ellipse_proxy_widget, 3, 2, 1, 1, Qt::AlignCenter);
+
             main_layout->addItem(input_ellipse_proxy_widget, 1, 0, 1, 1, Qt::AlignCenter);
-            main_layout->addItem(input_name_label_proxy_widget, 1, 1, 1, 1, Qt::AlignCenter);
-            main_layout->addItem(input_spin_box_proxy_widget, 2, 1, 1, 1, Qt::AlignCenter);
-            main_layout->addItem(output_name_label_proxy_widget, 3, 1, 1, 1, Qt::AlignCenter);
-            main_layout->addItem(output_ellipse_proxy_widget, 3, 2, 1, 1, Qt::AlignCenter);
+            main_layout->addItem(input_spin_box_proxy_widget, 1, 1, 1, 1, Qt::AlignCenter);
+            main_layout->addItem(output_ellipse_proxy_widget, 1, 2, 1, 1, Qt::AlignCenter);
 
             this->setLayout(main_layout);
 
@@ -64,15 +68,15 @@ namespace Mather {
         void InputValueChanged(long long);
     private:
         Label* node_name_label = new Label("Int64 Value Node");
-        Label* input_name_label = new Label("Input");
-        Label* output_name_label = new Label("Output");
+//        Label* input_name_label = new Label("Input");
+//        Label* output_name_label = new Label("Output");
         PortWidget* input_ellipse = new PortWidget;
         PortWidget* output_ellipse = new PortWidget;
         Int64SpinBox* input_spin_box = new Int64SpinBox;
 
         QGraphicsProxyWidget* node_name_label_proxy_widget = new QGraphicsProxyWidget;
-        QGraphicsProxyWidget* input_name_label_proxy_widget = new QGraphicsProxyWidget;
-        QGraphicsProxyWidget* output_name_label_proxy_widget = new QGraphicsProxyWidget;
+//        QGraphicsProxyWidget* input_name_label_proxy_widget = new QGraphicsProxyWidget;
+//        QGraphicsProxyWidget* output_name_label_proxy_widget = new QGraphicsProxyWidget;
         QGraphicsProxyWidget* input_ellipse_proxy_widget = new QGraphicsProxyWidget;
         QGraphicsProxyWidget* output_ellipse_proxy_widget = new QGraphicsProxyWidget;
         QGraphicsProxyWidget* input_spin_box_proxy_widget = new QGraphicsProxyWidget;

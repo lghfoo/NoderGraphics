@@ -23,7 +23,7 @@ namespace Mather {
     public:
         QRectF boundingRect() const override
         {
-            return QRectF(-outer_radius / 2.0, -outer_radius / 2.0, outer_radius, outer_radius);
+            return QRectF(-outer_radius, -outer_radius, outer_radius * 2, outer_radius * 2);
         }
         void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override
         {
@@ -31,13 +31,25 @@ namespace Mather {
             pen.setWidth(2);
             pen.setColor(Qt::white);
             painter->setPen(pen);
-            auto cycle = QRectF(-radius / 2.0, -radius / 2.0, radius, radius);
+            auto cycle = QRectF(-radius, -radius, radius * 2, radius * 2);
             painter->drawEllipse(cycle);
+
+            pen.setCapStyle(Qt::PenCapStyle::RoundCap);
+            painter->setPen(pen);
+            constexpr int len = 4;
+            qreal x0s[len] = {inner_radius, 0, -inner_radius, 0};
+            qreal y0s[len] = {0, inner_radius, 0, -inner_radius};
+            qreal x1s[len] = {outer_radius, 0, -outer_radius, 0};
+            qreal y1s[len] = {0, outer_radius, 0, -outer_radius};
+            for(int i = 0; i < len; i++){
+                painter->drawLine(QLineF(x0s[i], y0s[i], x1s[i], y1s[i]));
+            }
+
         }
     private:
-        qreal radius = 35.0;
-        qreal inner_radius = 5.0;
-        qreal outer_radius = radius + 5.0;
+        qreal radius = 12.0;
+        qreal inner_radius = 6;
+        qreal outer_radius = radius + 6;
     };
 
     class MainScene:public QGraphicsScene{
@@ -83,9 +95,13 @@ namespace Mather {
             return QPointF();
         }
 
-        void AddItem(QGraphicsItem* item){
+        void AddItemAtCursor(QGraphicsItem* item){
             item->setParentItem(root_item);
             item->setPos(root_item->mapFromScene(cursor_item->pos()));
+        }
+
+        void AddItem(QGraphicsItem* item){
+            item->setParentItem(root_item);
         }
     protected:
         void mouseMoveEvent(QGraphicsSceneMouseEvent* event) override{

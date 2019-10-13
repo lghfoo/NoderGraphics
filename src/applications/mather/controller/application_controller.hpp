@@ -25,7 +25,7 @@ namespace Mather {
             QObject::connect(main_view, &MainView::add_node,[&](const GraphicsType& type){
                 NodeController* controller = NodeControllerFactory::CreateNodeController(type_map.value(type));
                 auto scene = MainScene::GetInstance();
-                scene->AddItem(controller->GetNodeGraphics());
+                scene->AddItemAtCursor(controller->GetNodeGraphics());
             });
 
             ConnectionController::Init();
