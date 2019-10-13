@@ -12,12 +12,18 @@ namespace Mather {
     class NodeControllerFactory{
     public:
         static NodeController* CreateNodeController(const NodeType& nodeType){
+#define BIN_OP_CASE(e, type, node_name)                                                                             \
+case NodeType::e:                                                                                                   \
+    ret = new BinaryOpNodeController<type>(NodeFactory::CreateNode(nodeType), new BinaryOpNodeGraphics(node_name)); \
+    break;
+
             NodeController* ret = nullptr;
             switch (nodeType) {
-            case NodeType::INT64_ADD:
-                // todo create int64 node
-                ret = new Int64AddNodeController(new AddOpNode<long long, long long, long long>(), new Int64AddNodeGraphics());
-                break;
+            BIN_OP_CASE(INT64_ADD, long long, "Int64 Addition")
+            BIN_OP_CASE(INT64_SUBSTRACT, long long, "Int64 Substraction")
+            BIN_OP_CASE(INT64_MULTIPLY, long long, "Int64 Multiplication")
+            BIN_OP_CASE(INT64_DIVIDE, long long, "Int64 Division")
+            BIN_OP_CASE(INT64_MODULUS, long long, "Int64 Modulus")
             case NodeType::INT64_VALUE:
                 ret = new Int64ValueController(new ValueNode(), new Int64ValueNodeGraphics());
                 break;
@@ -25,6 +31,7 @@ namespace Mather {
                 break;
             }
             return ret;
+#undef BIN_OP_CASE(e, type, node_name)
         }
     private:
 

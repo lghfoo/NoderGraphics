@@ -16,7 +16,12 @@ namespace Mather {
         Application* application = Application::GetInstance();
         QMap<GraphicsType, NodeType>type_map = {
             {GraphicsType::INT64_ADD, NodeType::INT64_ADD},
+            {GraphicsType::INT64_SUBSTRACT, NodeType::INT64_SUBSTRACT},
+            {GraphicsType::INT64_MULTIPLY, NodeType::INT64_MULTIPLY},
+            {GraphicsType::INT64_DIVIDE, NodeType::INT64_DIVIDE},
+            {GraphicsType::INT64_MODULUS, NodeType::INT64_MODULUS},
             {GraphicsType::INT64_VALUE, NodeType::INT64_VALUE}
+
         };
     private:
         ApplicationController(){}

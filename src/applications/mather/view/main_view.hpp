@@ -205,6 +205,7 @@ namespace Mather {
             op_node_menu->addMenu(substract_operation_node_menu);
             op_node_menu->addMenu(multiply_operation_node_menu);
             op_node_menu->addMenu(divide_operation_node_menu);
+            op_node_menu->addMenu(modulus_operation_node_menu);
             op_node_menu->addMenu(minus_operation_node_menu);
 
             value_node_menu->addAction(int64_value_node_action);
@@ -221,6 +222,9 @@ namespace Mather {
 
             divide_operation_node_menu->addAction(int64_divide_node_action);
             divide_operation_node_menu->addAction(double_divide_node_action);
+
+            modulus_operation_node_menu->addAction(int64_modulus_node_action);
+            modulus_operation_node_menu->addAction(double_modulus_node_action);
 
             minus_operation_node_menu->addAction(int64_minus_node_action);
             minus_operation_node_menu->addAction(double_minus_node_action);
@@ -245,6 +249,10 @@ namespace Mather {
         QAction* int64_divide_node_action = new QAction("Int64");
         QAction* double_divide_node_action = new QAction("Double");
 
+        QMenu* modulus_operation_node_menu = new QMenu("Modulus");
+        QAction* int64_modulus_node_action = new QAction("Int64");
+        QAction* double_modulus_node_action = new QAction("Double");
+
         QMenu* minus_operation_node_menu = new QMenu("Minus");
         QAction* int64_minus_node_action = new QAction("Int64");
         QAction* double_minus_node_action = new QAction("Double");
@@ -259,6 +267,10 @@ namespace Mather {
     public:
         enum GraphicsType{
             INT64_ADD,
+            INT64_SUBSTRACT,
+            INT64_MULTIPLY,
+            INT64_DIVIDE,
+            INT64_MODULUS,
             INT64_VALUE
         };
     signals:
@@ -273,6 +285,18 @@ namespace Mather {
             {
                 if(selectedItem == int64_add_node_action){
                     emit add_node(INT64_ADD);
+                }
+                else if(selectedItem == int64_substract_node_action){
+                    emit add_node(INT64_SUBSTRACT);
+                }
+                else if(selectedItem == int64_multiply_node_action){
+                    emit add_node(INT64_MULTIPLY);
+                }
+                else if(selectedItem == int64_divide_node_action){
+                    emit add_node(INT64_DIVIDE);
+                }
+                else if(selectedItem == int64_modulus_node_action){
+                    emit add_node(INT64_MODULUS);
                 }
                 else if(selectedItem == int64_value_node_action){
                     emit add_node(INT64_VALUE);
