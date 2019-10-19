@@ -2,7 +2,7 @@
 #include<QGraphicsWidget>
 #include<QDebug>
 #include"Noder/src/core/noder/node.hpp"
-#include"node_graphics.hpp"
+#include"../view/node_graphics.hpp"
 #include"graphics_controller.hpp"
 namespace NoderGraphics {
     class NodeController : public GraphicsController{

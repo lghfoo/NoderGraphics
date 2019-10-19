@@ -26,25 +26,26 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     src/applications/mather/controller/application_controller.hpp \
-    src/applications/mather/controller/connection_controller.hpp \
     src/applications/mather/controller/node_controller_factory.hpp \
     src/applications/mather/controller/op_node_controller.hpp \
-    src/applications/mather/controller/port_controller.hpp \
     src/applications/mather/controller/value_node_controller.hpp \
     src/applications/mather/model/application.hpp \
-    src/applications/mather/view/connection_graphics.hpp \
-    src/applications/mather/view/main_view.hpp \
     src/applications/mather/view/node_graphics_factory.hpp \
     src/applications/mather/view/op_node_graphics.hpp \
     src/applications/mather/view/value_node_graphics.hpp \
     src/controls/custom_label.hpp \
     src/controls/double_spin_box.hpp \
     src/controls/int64_spin_box.hpp \
-    src/controls/port_widget.hpp \
     src/controls/spin_box_base.hpp \
-    src/core/graphics_controller.hpp \
-    src/core/node_controller.hpp \
-    src/core/node_graphics.hpp
+    src/core/controller/application_controller.hpp \
+    src/core/controller/connection_controller.hpp \
+    src/core/controller/graphics_controller.hpp \
+    src/core/controller/node_controller.hpp \
+    src/core/controller/port_controller.hpp \
+    src/core/view/connection_graphics.hpp \
+    src/core/view/main_view.hpp \
+    src/core/view/node_graphics.hpp \
+    src/core/view/port_view.hpp
 
 RESOURCES += \
     resources.qrc

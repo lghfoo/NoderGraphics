@@ -1,37 +1,43 @@
 #pragma once
-#include"../view/main_view.hpp"
 #include"../view/connection_graphics.hpp"
-#include"../../../core/graphics_controller.hpp"
-#include"../view/op_node_graphics.hpp"
+#include"../../core/view/port_view.hpp"
+#include"graphics_controller.hpp"
 #include"Noder/src/applications/mather/value_node.hpp"
-namespace Mather {
+namespace NoderGraphics {
+    using namespace Noder;
     class PortController: public NoderGraphics::GraphicsController{
     private:
         using Node = Noder::Node;
-        using NodeGraphics = NoderGraphics::NodeGraphics;
-        using DragBeginHandler = std::function<void(Port*, NoderGraphics::PortWidget*)>;
-        using DropHandler = std::function<void(Port*, NoderGraphics::PortWidget*)>;
-        using PosChangedHandler = std::function<void(void)>;
-        using PPosChangedHandler = PosChangedHandler*;
-        using IgnoreDropHandler = std::function<void(void)>;
+        using DragBeginHandler = Listener<void, Port*, NoderGraphics::PortView*>;
+        using DropHandler = Listener<void, Port*, NoderGraphics::PortView*>;
+        using IgnoreDropHandler = Listener<void>;
     protected:
         Port* port = nullptr;
-        NoderGraphics::PortWidget* port_graphics = nullptr;
+        NoderGraphics::PortView* port_graphics = nullptr;
     public:
-        PortController(Port* port,  NoderGraphics::PortWidget* port_graphics)
+        PortController(Port* port,  NoderGraphics::PortView* port_graphics)
                             :port(port), port_graphics(port_graphics){
-            this->port_graphics->SetDragBeginHandler([=](NoderGraphics::PortWidget* port_widget){
+            this->port_graphics->SetDragBeginHandler([=](NoderGraphics::PortView* port_widget){
                 auto handler = PortController::GetDragBeginHandler();
-                handler(port, port_widget);
+                if(handler.IsValid()){
+                    handler(port, port_widget);
+                }
+                else{
+                    //todo: warning
+                }
             });
 
-            this->port_graphics->SetDropHandler([=](NoderGraphics::PortWidget* port_widget){
+            this->port_graphics->SetDropHandler([=](NoderGraphics::PortView* port_widget){
                 auto handler = PortController::GetDropHandler();
-                handler(port, port_widget);
+                if(handler.IsValid()){
+                    handler(port, port_widget);
+                }
             });
             this->port_graphics->SetIgnoreDropHandler([=]{
                 auto handler = PortController::GetIgnoreDropHandler();
-                handler();
+                if(handler.IsValid()){
+                    handler();
+                }
             });
 
         }
@@ -40,7 +46,7 @@ namespace Mather {
             return port;
         }
 
-        NoderGraphics::PortWidget* GetPortGraphics(){
+        NoderGraphics::PortView* GetPortGraphics(){
             return port_graphics;
         }
 

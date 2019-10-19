@@ -6,8 +6,7 @@
 #include<QGraphicsSceneMouseEvent>
 #include<QGraphicsProxyWidget>
 #include"../../../controls/int64_spin_box.hpp"
-#include"../../../controls/port_widget.hpp"
-#include"../../../core/node_graphics.hpp"
+#include"../../../core/view/node_graphics.hpp"
 #include"op_node_graphics.hpp"
 #include"value_node_graphics.hpp"
 namespace Mather {
@@ -19,8 +18,6 @@ namespace Mather {
     public:
         static NoderGraphics::NodeGraphics* CreateNodeGraphics(const NodeType& type){
             switch (type) {
-//            case INT64_ADD:
-//                return new Int64AddNodeGraphics();
             case INT64_VALUE:
                 return new Int64ValueNodeGraphics();
             default:

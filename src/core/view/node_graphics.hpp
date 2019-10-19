@@ -38,20 +38,5 @@ namespace NoderGraphics {
             event->accept();
             QGraphicsWidget::mousePressEvent(event);
         }
-
-//        virtual void wheelEvent(QGraphicsSceneWheelEvent* event){
-//            printf("graphics wheel event\n");
-//            event->accept();
-//        }
-
-//    protected:
-//        QVariant itemChange(GraphicsItemChange change, const QVariant &value)
-//        {
-//            if (change == ItemPositionChange && scene()) {
-//                // value is the new position.
-//                qDebug()<<"item pos change";
-//            }
-//            return QGraphicsItem::itemChange(change, value);
-//        }
     };
 }

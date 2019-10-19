@@ -1,55 +1,42 @@
 #pragma once
-#include<QMainWindow>
-#include<QMap>
-#include"../model/application.hpp"
-#include"../view/main_view.hpp"
-#include"connection_controller.hpp"
-#include"../../../core/node_controller.hpp"
+#include"../../../core/view/main_view.hpp"
+
+#include"../../../core/controller/node_controller.hpp"
+#include"../../../core/controller/port_controller.hpp"
 #include"node_controller_factory.hpp"
 namespace Mather {
+    using namespace NoderGraphics;
     class ApplicationController{
-        using NodeController = NoderGraphics::NodeController;
-        using GraphicsType = MainView::GraphicsType;
+        using AddNodeHandler = MainView::AddNodeHandler;
         using NodeType = NodeFactory::NodeType;
-    private:
-        MainView* main_view = nullptr;
-        Application* application = Application::GetInstance();
-        QMap<GraphicsType, NodeType>type_map = {
-            {GraphicsType::INT64_ADD, NodeType::INT64_ADD},
-            {GraphicsType::INT64_SUBSTRACT, NodeType::INT64_SUBSTRACT},
-            {GraphicsType::INT64_MULTIPLY, NodeType::INT64_MULTIPLY},
-            {GraphicsType::INT64_DIVIDE, NodeType::INT64_DIVIDE},
-            {GraphicsType::INT64_MODULUS, NodeType::INT64_MODULUS},
-            {GraphicsType::INT64_VALUE, NodeType::INT64_VALUE}
-
-        };
-    private:
-        ApplicationController(){}
-        void Init(){
-            main_view = new MainView();
-            QObject::connect(main_view, &MainView::add_node,[&](const GraphicsType& type){
-                NodeController* controller = NodeControllerFactory::CreateNodeController(type_map.value(type));
-                auto scene = MainScene::GetInstance();
-                scene->AddItemAtCursor(controller->GetNodeGraphics());
-            });
-
-            ConnectionController::Init();
-        }
     public:
-        static ApplicationController* GetInstance(){
-            static ApplicationController* instance = new ApplicationController();
-            return instance;
-        }
-        int Run(int argc, char *argv[]){
-            QApplication a(argc, argv);
-            ApplicationController::Init();
-
-            QMainWindow mainWindow;
-            mainWindow.setCentralWidget(main_view);
-            mainWindow.show();
-
-            return a.exec();
+        ApplicationController(){
+            main_view->AddContextAction("Operation/Add/Int64", GetAddNodeHandler<NodeType::INT64_ADD>());
+            main_view->AddContextAction("Operation/Substract/Int64", GetAddNodeHandler<NodeType::INT64_SUBSTRACT>());
+            main_view->AddContextAction("Operation/Multiply/Int64", GetAddNodeHandler<NodeType::INT64_MULTIPLY>());
+            main_view->AddContextAction("Operation/Divide/Int64", GetAddNodeHandler<NodeType::INT64_DIVIDE>());
+            main_view->AddContextAction("Operation/Modulus/Int64", GetAddNodeHandler<NodeType::INT64_MODULUS>());
+            main_view->AddContextAction("Value/Int64", GetAddNodeHandler<NodeType::INT64_VALUE>());
         }
 
+        const MainView* GetMainView()const{
+            return main_view;
+        }
+
+        MainView* GetMainView(){
+            return main_view;
+        }
+
+        template<NodeType NODE_TYPE>
+        static AddNodeHandler& GetAddNodeHandler(){
+            static AddNodeHandler handler = [](MainView* view){
+                NodeController* controller = NodeControllerFactory::CreateNodeController(NODE_TYPE);
+                auto scene = static_cast<MainScene*>(view->scene());
+                scene->AddItemAtCursor(controller->GetNodeGraphics());
+            };
+            return handler;
+        }
+    private:
+        MainView* main_view = new MainView();
     };
 }

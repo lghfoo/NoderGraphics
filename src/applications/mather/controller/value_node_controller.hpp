@@ -1,10 +1,10 @@
 #pragma once
-#include"../view/main_view.hpp"
-#include"../view/connection_graphics.hpp"
-#include"../../../core/node_controller.hpp"
+#include"../../../core/view/connection_graphics.hpp"
+#include"../../../core/controller/node_controller.hpp"
+#include"../../../core/controller/port_controller.hpp"
 #include"../view/op_node_graphics.hpp"
+#include"../view/value_node_graphics.hpp"
 #include"Noder/src/applications/mather/value_node.hpp"
-#include"port_controller.hpp"
 namespace Mather {
     class Int64ValueController: public NoderGraphics::NodeController{
     private:

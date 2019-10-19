@@ -2,7 +2,6 @@
 #include<QGraphicsWidget>
 #include<QDebug>
 #include"Noder/src/core/noder/node.hpp"
-#include"node_graphics.hpp"
 namespace NoderGraphics {
     class GraphicsController{
     protected:

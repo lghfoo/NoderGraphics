@@ -12,7 +12,6 @@
 #include<QMimeData>
 #include<functional>
 #include <QLabel>
-#include"../core/node_graphics.hpp"
 namespace NoderGraphics {
     class Label:public QLabel{
     public:

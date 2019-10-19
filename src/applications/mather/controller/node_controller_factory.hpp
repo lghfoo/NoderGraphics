@@ -1,7 +1,6 @@
 #pragma once
-#include"../view/main_view.hpp"
-#include"../view/connection_graphics.hpp"
-#include"../../../core/node_controller.hpp"
+#include"../../../core/view/connection_graphics.hpp"
+#include"../../../core/controller/node_controller.hpp"
 #include"Noder/src/applications/mather/node_factory.hpp"
 #include"value_node_controller.hpp"
 #include"op_node_controller.hpp"
