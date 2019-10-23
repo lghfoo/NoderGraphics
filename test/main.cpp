@@ -8,10 +8,12 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     NoderGraphics::ApplicationController::GetInstance()->Init();
     Mather::ApplicationController* controller = new Mather::ApplicationController();
+    Mather::ApplicationController* controller2 = new Mather::ApplicationController();
     QMainWindow main_window;
     QTabWidget tab_widget;
     main_window.setCentralWidget(&tab_widget);
     tab_widget.addTab(controller->GetMainView(), "Mather");
+    tab_widget.addTab(controller2->GetMainView(), "Mather2");
     main_window.show();
     return a.exec();
 }
