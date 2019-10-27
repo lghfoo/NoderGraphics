@@ -39,8 +39,14 @@ namespace NoderGraphics {
             this->dst_port_controller = dst_port_controller;
             this->connection->SetDstPort(dst_port_controller->GetPort());
         }
+        PortController* GetSrcPortController(){
+            return this->src_port_controller;
+        }
+        PortController* GetDstPortController(){
+            return this->dst_port_controller;
+        }
         static void Init(){
-            PortController::SetDragBeginHandler([=](Port* port, NoderGraphics::PortView* src_ellipse){
+            PortController::SetDragBeginHandler([=](Port* port, NoderGraphics::PortProxy* src_ellipse){
                 auto scene = static_cast<MainScene*>(src_ellipse->scene());
                 scene->AddMouseDragMoveHandler(ConnectionController::GetMouseDragMoveHandler());
                 auto center = scene->MapFromScreen(src_ellipse->GetCenterOnScreen());
@@ -51,10 +57,15 @@ namespace NoderGraphics {
                 src_ellipse->AddPosChangedHandler(connection->src_port_pos_changed_handler);
                 SetCreatingConnection(connection);
             });
-            PortController::SetDropHandler([=](Port* port, NoderGraphics::PortView* dst_ellipse){
+            PortController::SetDropHandler([=](Port* port, NoderGraphics::PortProxy* dst_ellipse){
                 auto scene = static_cast<MainScene*>(dst_ellipse->scene());
                 auto connection = ConnectionController::GetCreatingConnection();
                 if(!connection)return;
+                if(connection->GetSrcPortController()->GetPortGraphics() == dst_ellipse){
+                    delete connection;
+                    ConnectionController::SetCreatingConnection(nullptr);
+                    return;
+                }
                 auto center = scene->MapFromScreen(dst_ellipse->GetCenterOnScreen());
                 connection->connection_graphics->SetP2(center);
                 connection->SetDstPortController(new PortController(port, dst_ellipse));
@@ -69,12 +80,12 @@ namespace NoderGraphics {
             });
         }
     private:
-        NoderGraphics::PortView::PosChangedHandler src_port_pos_changed_handler = [=](PortView* port_view, const QPoint& center_on_screen){
+        NoderGraphics::PortProxy::PosChangedHandler src_port_pos_changed_handler = [=](PortProxy* port_view, const QPoint& center_on_screen){
             auto scene = static_cast<MainScene*>(port_view->scene());
             auto center = scene->MapFromScreen(center_on_screen);
             this->connection_graphics->SetP1(center);
         };
-        NoderGraphics::PortView::PosChangedHandler dst_port_pos_changed_handler = [=](PortView* port_view, const QPoint& center_on_screen){
+        NoderGraphics::PortProxy::PosChangedHandler dst_port_pos_changed_handler = [=](PortProxy* port_view, const QPoint& center_on_screen){
             auto scene = static_cast<MainScene*>(port_view->scene());
             auto center = scene->MapFromScreen(center_on_screen);
             this->connection_graphics->SetP2(center);

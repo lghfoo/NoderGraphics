@@ -7,8 +7,32 @@
 #include<QGraphicsSceneWheelEvent>
 #include <QGraphicsGridLayout>
 namespace NoderGraphics {
-    class NodeGraphics: public QGraphicsWidget{
+    class WidgetProxy : public QGraphicsProxyWidget {
     public:
+        virtual void NotifyPosChanged(){}
+        template<typename T>
+        T* GetWidget(){
+            return static_cast<T*>(this->widget());
+        }
+    };
+
+    class NodeGraphics: public QGraphicsWidget{
+    protected:
+        QList<WidgetProxy*> uis = {};
+        QVariant itemChange(GraphicsItemChange change, const QVariant &value)
+        {
+            if (change == ItemPositionHasChanged && scene()) {
+                for(auto ui : uis){
+                    ui->NotifyPosChanged();
+                }
+            }
+            return QGraphicsItem::itemChange(change, value);
+        }
+    public:
+        template<typename T>
+        T* GetUI(int id){
+            return static_cast<T*>(uis[id]);
+        }
         NodeGraphics(){
             this->setFlag(QGraphicsItem::GraphicsItemFlag::ItemIsMovable);
             this->setFlag(QGraphicsItem::GraphicsItemFlag::ItemIsSelectable);
@@ -42,9 +66,6 @@ namespace NoderGraphics {
         }
     };
 
-    class WidgetProxy : public QGraphicsProxyWidget {
-
-    };
 
     class NodeLayoutBuilder{
     private:
@@ -58,8 +79,12 @@ namespace NoderGraphics {
     public:
         NodeLayoutBuilder(){
         }
-        NodeLayoutBuilder(QList<WidgetProxy*>* proxies){
+        NodeLayoutBuilder(QList<WidgetProxy*>* proxies, int ui_count){
             widget_proxies = proxies;
+            widget_proxies->clear();
+            while(widget_proxies->size() < ui_count){
+                widget_proxies->append(nullptr);
+            }
         }
         QGraphicsLayout* Layout(){
             return layout;
@@ -67,7 +92,12 @@ namespace NoderGraphics {
 
         NodeLayoutBuilder& NextRow(){
             row++;
+            column = 0;
             return *this;
+        }
+
+        NodeLayoutBuilder& Skip(){
+            return NextColumn();
         }
 
         NodeLayoutBuilder& NextColumn(){
@@ -76,24 +106,30 @@ namespace NoderGraphics {
         }
 
         NodeLayoutBuilder& Add(int id, WidgetProxy* proxy){
-            this->Add(id, proxy, row, column);
-            return *this;
+            return Add(id, proxy, row, column);
         }
 
         NodeLayoutBuilder& Add(WidgetProxy* proxy){
-            this->Add(proxy, row, column);
-            return *this;
+            return Add(proxy, row, column);
         }
 
         NodeLayoutBuilder& Add(int id, WidgetProxy* proxy, int row, int column){
-            layout->addItem(proxy, this->row = row, (this->column = column)++, current_row_span, current_column_span, alignment);
+            return Add(id, proxy, row, column, current_row_span, current_column_span);
+        }
+
+        NodeLayoutBuilder& Add(WidgetProxy* proxy, int row, int column){
+            return Add(proxy, row, column, current_row_span, current_column_span);
+        }
+
+        NodeLayoutBuilder& Add(int id, WidgetProxy* proxy, int row, int column, int row_span, int column_span){
+            layout->addItem(proxy, this->row = row, (this->column = column)++, row_span, column_span, alignment);
             if(widget_proxies && id < widget_proxies->size())
                 (*widget_proxies)[id] = proxy;
             return *this;
         }
 
-        NodeLayoutBuilder& Add(WidgetProxy* proxy, int row, int column){
-            layout->addItem(proxy, this->row = row, (this->column = column)++, current_row_span, current_column_span, alignment);
+        NodeLayoutBuilder& Add(WidgetProxy* proxy, int row, int column, int row_span, int column_span){
+            layout->addItem(proxy, this->row = row, (this->column = column)++, row_span, column_span, alignment);
             return *this;
         }
 

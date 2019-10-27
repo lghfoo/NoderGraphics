@@ -1,5 +1,4 @@
-#ifndef INT64_SPIN_BOX_HPP
-#define INT64_SPIN_BOX_HPP
+#pragma once
 #include"spin_box_base.hpp"
 #include"../core/view/node_graphics.hpp"
 namespace NoderGraphics {
@@ -43,12 +42,6 @@ namespace NoderGraphics {
         Int64SpinBoxProxy(){
             this->setWidget(new Int64SpinBox());
         }
-
-        Int64SpinBox* GetSpinBox(){
-            return static_cast<Int64SpinBox*>(this->widget());
-        }
     };
 }
 
-
-#endif // INT64_SPIN_BOX_HPP

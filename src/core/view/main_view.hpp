@@ -122,7 +122,8 @@ namespace NoderGraphics {
 
         void mousePressEvent(QGraphicsSceneMouseEvent* event) override{
             if(event->button() & Qt::MiddleButton){
-                QApplication::setOverrideCursor(QCursor(Qt::ClosedHandCursor));
+                QGraphicsScene::mousePressEvent(event);
+//                QApplication::setOverrideCursor(QCursor(Qt::ClosedHandCursor));
             }
             else{
                 QGraphicsScene::mousePressEvent(event);
@@ -134,9 +135,9 @@ namespace NoderGraphics {
         void mouseReleaseEvent(QGraphicsSceneMouseEvent* event) override{
             // after drag, clear drag move handler
             this->mouseDragMoveHandlers.clear();
-            if(event->button() & Qt::MiddleButton){
-                QApplication::restoreOverrideCursor();
-            }
+//            if(event->button() & Qt::MiddleButton){
+//                QApplication::restoreOverrideCursor();
+//            }
             QGraphicsScene::mouseReleaseEvent(event);
         }
 

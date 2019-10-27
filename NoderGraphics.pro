@@ -25,6 +25,10 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    src/applications/filer/controller/application_controller.hpp \
+    src/applications/filer/controller/node_controller_factory.hpp \
+    src/applications/filer/controller/select_file_node_controller.hpp \
+    src/applications/filer/view/select_file_node_graphics.hpp \
     src/applications/mather/controller/application_controller.hpp \
     src/applications/mather/controller/node_controller_factory.hpp \
     src/applications/mather/controller/op_node_controller.hpp \
@@ -33,8 +37,15 @@ HEADERS += \
     src/applications/mather/view/node_graphics_factory.hpp \
     src/applications/mather/view/op_node_graphics.hpp \
     src/applications/mather/view/value_node_graphics.hpp \
+    src/applications/texter/controller/application_controller.hpp \
+    src/applications/texter/controller/node_controller_factory.hpp \
+    src/applications/texter/controller/text_value_node_controller.hpp \
+    src/applications/texter/view/text_value_node_graphics.hpp \
     src/controls/custom_label.hpp \
+    src/controls/custom_text_edit.hpp \
     src/controls/double_spin_box.hpp \
+    src/controls/file_box.hpp \
+    src/controls/image_view.hpp \
     src/controls/int64_spin_box.hpp \
     src/controls/spin_box_base.hpp \
     src/core/controller/application_controller.hpp \

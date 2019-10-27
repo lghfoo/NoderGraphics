@@ -1,5 +1,4 @@
 #pragma once
-#include"../../../core/view/connection_graphics.hpp"
 #include"../../../core/controller/node_controller.hpp"
 #include"Noder/src/applications/mather/node_factory.hpp"
 #include"value_node_controller.hpp"

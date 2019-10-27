@@ -8,10 +8,10 @@
 //#include"node_controller_factory.hpp"
 namespace NoderGraphics {
     class ApplicationController{
+        using AddNodeHandler = MainView::AddNodeHandler;
         using NodeController = NoderGraphics::NodeController;
-    private:
-        ApplicationController(){}
     public:
+        ApplicationController(){}
         static ApplicationController* GetInstance(){
             static ApplicationController* instance = new ApplicationController();
             return instance;
@@ -21,5 +21,14 @@ namespace NoderGraphics {
             ConnectionController::Init();
         }
 
+        const MainView* GetMainView()const{
+            return main_view;
+        }
+
+        MainView* GetMainView(){
+            return main_view;
+        }
+    protected:
+        MainView* main_view = new MainView();
     };
 }

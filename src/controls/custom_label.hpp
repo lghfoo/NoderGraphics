@@ -28,8 +28,9 @@ namespace NoderGraphics {
 
     class LabelProxy : public WidgetProxy{
     public:
-        LabelProxy(const QString& text){
+        LabelProxy(const QString& text, Qt::Alignment alignment = Qt::AlignCenter){
             auto label = new QLabel(text);
+            label->setAlignment(alignment);
             auto pal = label->palette();
             pal.setColor(QPalette::Background, Qt::transparent);
             label->setPalette(pal);
@@ -38,10 +39,6 @@ namespace NoderGraphics {
 
         LabelProxy() : LabelProxy(""){
 
-        }
-
-        QLabel* GetLabel(){
-            return static_cast<QLabel*>(this->widget());
         }
     };
 }

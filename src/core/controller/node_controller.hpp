@@ -6,6 +6,7 @@
 #include"graphics_controller.hpp"
 namespace NoderGraphics {
     class NodeController : public GraphicsController{
+    public:
         using Node = Noder::Node;
         using NodeGraphics = NoderGraphics::NodeGraphics;
     protected:

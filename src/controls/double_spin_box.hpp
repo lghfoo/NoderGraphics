@@ -1,5 +1,4 @@
-#ifndef DOUBLE_SPIN_BOX_HPP
-#define DOUBLE_SPIN_BOX_HPP
+#pragma once
 #include"spin_box_base.hpp"
 class DoubleSpinBox: public SpinBoxBase{
     Q_OBJECT
@@ -29,4 +28,3 @@ public:
 private:
 };
 
-#endif // DOUBLE_SPIN_BOX_HPP

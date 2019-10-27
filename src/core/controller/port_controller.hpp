@@ -8,16 +8,16 @@ namespace NoderGraphics {
     class PortController: public NoderGraphics::GraphicsController{
     private:
         using Node = Noder::Node;
-        using DragBeginHandler = Listener<void, Port*, NoderGraphics::PortView*>;
-        using DropHandler = Listener<void, Port*, NoderGraphics::PortView*>;
+        using DragBeginHandler = Listener<void, Port*, NoderGraphics::PortProxy*>;
+        using DropHandler = Listener<void, Port*, NoderGraphics::PortProxy*>;
         using IgnoreDropHandler = Listener<void>;
     protected:
         Port* port = nullptr;
-        NoderGraphics::PortView* port_graphics = nullptr;
+        NoderGraphics::PortProxy* port_graphics = nullptr;
     public:
-        PortController(Port* port,  NoderGraphics::PortView* port_graphics)
+        PortController(Port* port,  NoderGraphics::PortProxy* port_graphics)
                             :port(port), port_graphics(port_graphics){
-            this->port_graphics->SetDragBeginHandler([=](NoderGraphics::PortView* port_widget){
+            this->port_graphics->SetDragBeginHandler([=](NoderGraphics::PortProxy* port_widget){
                 auto handler = PortController::GetDragBeginHandler();
                 if(handler.IsValid()){
                     handler(port, port_widget);
@@ -27,7 +27,7 @@ namespace NoderGraphics {
                 }
             });
 
-            this->port_graphics->SetDropHandler([=](NoderGraphics::PortView* port_widget){
+            this->port_graphics->SetDropHandler([=](NoderGraphics::PortProxy* port_widget){
                 auto handler = PortController::GetDropHandler();
                 if(handler.IsValid()){
                     handler(port, port_widget);
@@ -46,7 +46,7 @@ namespace NoderGraphics {
             return port;
         }
 
-        NoderGraphics::PortView* GetPortGraphics(){
+        NoderGraphics::PortProxy* GetPortGraphics(){
             return port_graphics;
         }
 

@@ -1,5 +1,4 @@
-﻿#ifndef SPIN_BOX_BASE_HPP
-#define SPIN_BOX_BASE_HPP
+﻿#pragma once
 #include<QWidget>
 #include<QPaintEvent>
 #include<QPainter>
@@ -726,4 +725,3 @@ protected:
 
 };
 
-#endif // SPIN_BOX_BASE_HPP

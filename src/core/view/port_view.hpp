@@ -1,4 +1,5 @@
 #pragma once
+#include "node_graphics.hpp"
 #include<QWidget>
 #include<functional>
 #include<QPainter>
@@ -6,6 +7,8 @@
 #include<QDropEvent>
 #include<QGraphicsProxyWidget>
 #include <QMimeData>
+#include <QGraphicsScene>
+#include<QGraphicsView>
 #include<Noder/src/core/utility/utility.hpp>
 namespace NoderGraphics {
     using namespace Noder;
@@ -14,7 +17,6 @@ namespace NoderGraphics {
     public:
         using DragBeginHandler = Listener<void>;//std::function<void(PortWidget*)>;
         using DropHandler = Listener<void>;//std::function<void(PortWidget*)>;
-        using PosChangedHandler = Listener<void, const QPoint&>;//std::function<void(const QPoint&)>;
         using IgnoreDropHandler = Listener<void>;//std::function<void(void)>;
         PortWidget(qreal radius = 6.0){
             this->SetRadius(radius);
@@ -42,22 +44,13 @@ namespace NoderGraphics {
             this->setFixedSize((radius + padding) * 2, (radius + padding) * 2);
             this->update();
         }
-        QPoint GetCenterOnScreen(){
-            return this->mapToGlobal(QPoint(padding + radius, padding + radius));
-        }
     private:
-        qreal radius;
-        qreal padding=5.0;
-        PosChangedHandler pos_changed_handler;
+        qreal radius = 6.0;
+        qreal padding = 5.0;
         DragBeginHandler on_drag_begin_handler = nullptr;
         DropHandler on_drop_handler = nullptr;
         IgnoreDropHandler ignore_drop_handler = nullptr;
     public:
-        void NotifyPosChanged(){
-            if(pos_changed_handler.IsValid()){
-                pos_changed_handler(this->GetCenterOnScreen());
-            }
-        }
         void dragEnterEvent(QDragEnterEvent* event)override{
             event->acceptProposedAction();
         }
@@ -71,13 +64,12 @@ namespace NoderGraphics {
                 handler();
             event->acceptProposedAction();
         }
-        void mousePressEvent(QMouseEvent* event)override{
+        void mousePressEvent(QMouseEvent*)override{
             auto handler = PortWidget::GetDragBeginHandler();
             if(handler.IsValid())
                 handler();
             QDrag* drag = new QDrag(this);
             QMimeData *data = new QMimeData;
-    //        data->setText("commentEdit->toPlainText()");
             drag->setMimeData(data);
             Qt::DropAction dropAction = drag->exec();
             if(dropAction == Qt::IgnoreAction){
@@ -112,17 +104,13 @@ namespace NoderGraphics {
         void SetIgnoreDropHandler(const IgnoreDropHandler& handler){
             this->ignore_drop_handler = handler;
         }
-
-        void SetPosChangedHandler(const PosChangedHandler& handler){
-            this->pos_changed_handler = handler;
-        }
     };
 
-    class PortView: public QGraphicsProxyWidget{
+    class PortProxy: public WidgetProxy{
     public:
-        using DragBeginHandler = Listener<void, PortView*>;
-        using DropHandler = Listener<void, PortView*>;
-        using PosChangedHandler = Listener<void, PortView*, const QPoint&>;
+        using DragBeginHandler = Listener<void, PortProxy*>;
+        using DropHandler = Listener<void, PortProxy*>;
+        using PosChangedHandler = Listener<void, PortProxy*, const QPoint&>;
         using IgnoreDropHandler = Listener<void>;
     private:
         PortWidget widget;
@@ -132,7 +120,7 @@ namespace NoderGraphics {
         IgnoreDropHandler ignore_drop_handler;
         QList<PosChangedHandler> pos_changed_handlers = {};
     public:
-        PortView(){
+        PortProxy(){
             this->setWidget(&widget);
             widget.SetDropHandler([=]{
                 if(this->drop_handler.IsValid()){
@@ -149,15 +137,13 @@ namespace NoderGraphics {
                     this->ignore_drop_handler();
                 }
             });
-            widget.SetPosChangedHandler([=](const QPoint& point){
-                for(auto handler : pos_changed_handlers){
-                    handler(this, point);
-                }
-            });
+
         }
 
         void NotifyPosChanged(){
-            widget.NotifyPosChanged();
+            for(auto handler : pos_changed_handlers){
+                handler(this, this->GetCenterOnScreen());
+            }
         }
 
         void SetDragBeginHandler(const DragBeginHandler& handler){
@@ -180,7 +166,12 @@ namespace NoderGraphics {
         }
 
         QPoint GetCenterOnScreen(){
-            return this->widget.GetCenterOnScreen();
+            auto center = this->boundingRect().center();
+            auto center_in_scene = this->mapToScene(center);
+            auto view = this->scene()->views().first();
+            auto center_in_view = view->mapFromScene(center_in_scene);
+            auto center_in_screen = view->mapToGlobal(center_in_view);
+            return center_in_screen;
         }
     };
 }
