@@ -6,6 +6,7 @@
 #include<QGraphicsProxyWidget>
 #include<QGraphicsSceneWheelEvent>
 #include <QGraphicsGridLayout>
+#include <qsizepolicy.h>
 namespace NoderGraphics {
     class WidgetProxy : public QGraphicsProxyWidget {
     public:
@@ -13,6 +14,18 @@ namespace NoderGraphics {
         template<typename T>
         T* GetWidget(){
             return static_cast<T*>(this->widget());
+        }
+
+        QVariant itemChange(QGraphicsItem::GraphicsItemChange change, const QVariant &value)override{
+            if(change == ItemPositionHasChanged && scene()){
+                this->NotifyPosChanged();
+            }
+            return value;
+        }
+
+
+        virtual void resizeEvent(QGraphicsSceneResizeEvent *event) override{
+            QGraphicsProxyWidget::resizeEvent(event);
         }
     };
 
@@ -22,13 +35,16 @@ namespace NoderGraphics {
         QVariant itemChange(GraphicsItemChange change, const QVariant &value)
         {
             if (change == ItemPositionHasChanged && scene()) {
-                for(auto ui : uis){
-                    ui->NotifyPosChanged();
-                }
+                this->NotifyPosChanged();
             }
             return QGraphicsItem::itemChange(change, value);
         }
     public:
+        void NotifyPosChanged(){
+            for(auto ui : uis){
+                ui->NotifyPosChanged();
+            }
+        }
         template<typename T>
         T* GetUI(int id){
             return static_cast<T*>(uis[id]);
@@ -77,8 +93,8 @@ namespace NoderGraphics {
         QList<WidgetProxy*>* widget_proxies = nullptr;
         Qt::Alignment alignment = Qt::AlignCenter;
     public:
-        NodeLayoutBuilder(){
-        }
+//        NodeLayoutBuilder(){
+//        }
         NodeLayoutBuilder(QList<WidgetProxy*>* proxies, int ui_count){
             widget_proxies = proxies;
             widget_proxies->clear();
@@ -122,14 +138,16 @@ namespace NoderGraphics {
         }
 
         NodeLayoutBuilder& Add(int id, WidgetProxy* proxy, int row, int column, int row_span, int column_span){
-            layout->addItem(proxy, this->row = row, (this->column = column)++, row_span, column_span, alignment);
+            layout->addItem(proxy, this->row = row, column, row_span, column_span, alignment);
+            this->column = column + column_span;
             if(widget_proxies && id < widget_proxies->size())
                 (*widget_proxies)[id] = proxy;
             return *this;
         }
 
         NodeLayoutBuilder& Add(WidgetProxy* proxy, int row, int column, int row_span, int column_span){
-            layout->addItem(proxy, this->row = row, (this->column = column)++, row_span, column_span, alignment);
+            layout->addItem(proxy, this->row = row, column, row_span, column_span, alignment);
+            this->column = column + column_span;
             return *this;
         }
 

@@ -29,6 +29,16 @@ HEADERS += \
     src/applications/filer/controller/node_controller_factory.hpp \
     src/applications/filer/controller/select_file_node_controller.hpp \
     src/applications/filer/view/select_file_node_graphics.hpp \
+    src/applications/imager/controller/application_controller.hpp \
+    src/applications/imager/controller/grayen_node_controller.hpp \
+    src/applications/imager/controller/image_node_controller.hpp \
+    src/applications/imager/controller/node_controller_factory.hpp \
+    src/applications/imager/controller/ppm_fimage_node_controller.hpp \
+    src/applications/imager/view/grayen_node_graphics.hpp \
+    src/applications/imager/view/image_node_graphics - 副本.hpp \
+    src/applications/imager/view/image_node_graphics - 副本.hpp \
+    src/applications/imager/view/image_node_graphics.hpp \
+    src/applications/imager/view/ppm_fimage_node_graphics.hpp \
     src/applications/mather/controller/application_controller.hpp \
     src/applications/mather/controller/node_controller_factory.hpp \
     src/applications/mather/controller/op_node_controller.hpp \
@@ -56,6 +66,7 @@ HEADERS += \
     src/core/view/connection_graphics.hpp \
     src/core/view/main_view.hpp \
     src/core/view/node_graphics.hpp \
+    src/core/view/node_graphics_presets/node_graphics_presets.hpp \
     src/core/view/port_view.hpp
 
 RESOURCES += \

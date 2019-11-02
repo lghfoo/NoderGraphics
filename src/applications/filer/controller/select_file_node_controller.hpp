@@ -25,7 +25,7 @@ namespace Filer {
             QObject::connect(text_graphics->GetWidget<QLineEdit>(), &QLineEdit::textChanged, [=](const QString& text){
                 if(this->IsBusy())return;
                 this->SetBusy(true);
-                auto str = text.toStdString();
+                auto str = text.toLocal8Bit().toStdString();
                 value_node->GetInputPort()->UpdateData(&str);
                 this->SetBusy(false);
             });
