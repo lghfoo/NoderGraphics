@@ -4,11 +4,15 @@
 #include"../view/image_node_graphics.hpp"
 #include"../view/ppm_fimage_node_graphics.hpp"
 #include"../view/grayen_node_graphics.hpp"
+#include"../view/bernsen_node_graphics.hpp"
+
+#include"../../../core/view/node_graphics_presets/node_graphics_presets.hpp"
 
 #include"image_node_controller.hpp"
 #include"ppm_fimage_node_controller.hpp"
 #include"grayen_node_controller.hpp"
-
+#include"binaryzation_otsu_node_controller.hpp"
+#include"binaryzation_bernsen_node_controller.hpp"
 namespace Imager {
     using namespace NoderGraphics;
     class NodeControllerFactory{
@@ -21,6 +25,10 @@ namespace Imager {
                 return new PPMFImageNodeController(NodeFactory::CreateNode(node_type), new PPMFImageNodeGraphics);
             case NodeFactory::NodeType::GRAYEN:
                 return new GrayenNodeController(NodeFactory::CreateNode(node_type), new GrayenNodeGraphics);
+            case NodeFactory::NodeType::OTSU_BINARYZATION:
+                return new OTSUNodeController(NodeFactory::CreateNode(node_type), new Label_1_1("OTSU Node"));
+            case NodeFactory::NodeType::BERNSEN_BINARYZATION:
+                return new BernsenNodeController(NodeFactory::CreateNode(node_type), new BernsenNodeGraphics);
             default:
                 return nullptr;
             }

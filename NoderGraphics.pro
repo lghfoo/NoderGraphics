@@ -30,10 +30,13 @@ HEADERS += \
     src/applications/filer/controller/select_file_node_controller.hpp \
     src/applications/filer/view/select_file_node_graphics.hpp \
     src/applications/imager/controller/application_controller.hpp \
+    src/applications/imager/controller/binaryzation_bernsen_node_controller.hpp \
+    src/applications/imager/controller/binaryzation_otsu_node_controller.hpp \
     src/applications/imager/controller/grayen_node_controller.hpp \
     src/applications/imager/controller/image_node_controller.hpp \
     src/applications/imager/controller/node_controller_factory.hpp \
     src/applications/imager/controller/ppm_fimage_node_controller.hpp \
+    src/applications/imager/view/bernsen_node_graphics.hpp \
     src/applications/imager/view/grayen_node_graphics.hpp \
     src/applications/imager/view/image_node_graphics - 副本.hpp \
     src/applications/imager/view/image_node_graphics - 副本.hpp \
