@@ -14,6 +14,7 @@ namespace Imager {
             main_view->AddContextAction("File/PPM", GetAddNodeHandler<NodeType::PPM_FILE_2_IMAGE>());
             main_view->AddContextAction("Operation/Grayen", GetAddNodeHandler<NodeType::GRAYEN>());
             main_view->AddContextAction("Operation/Binaryzation/OTSU", GetAddNodeHandler<NodeType::OTSU_BINARYZATION>());
+            main_view->AddContextAction("Operation/Binaryzation/Kittler", GetAddNodeHandler<NodeType::KITTLER_BINARYZATION>());
             main_view->AddContextAction("Operation/Binaryzation/Bernsen", GetAddNodeHandler<NodeType::BERNSEN_BINARYZATION>());
             main_view->AddContextAction("Filer/File", Filer::ApplicationController::
                                         GetAddNodeHandler<Filer::NodeFactory::

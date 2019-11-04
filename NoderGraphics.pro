@@ -31,6 +31,7 @@ HEADERS += \
     src/applications/filer/view/select_file_node_graphics.hpp \
     src/applications/imager/controller/application_controller.hpp \
     src/applications/imager/controller/binaryzation_bernsen_node_controller.hpp \
+    src/applications/imager/controller/binaryzation_kittler_node_controller.hpp \
     src/applications/imager/controller/binaryzation_otsu_node_controller.hpp \
     src/applications/imager/controller/grayen_node_controller.hpp \
     src/applications/imager/controller/image_node_controller.hpp \

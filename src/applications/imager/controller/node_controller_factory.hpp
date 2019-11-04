@@ -12,6 +12,7 @@
 #include"ppm_fimage_node_controller.hpp"
 #include"grayen_node_controller.hpp"
 #include"binaryzation_otsu_node_controller.hpp"
+#include"binaryzation_kittler_node_controller.hpp"
 #include"binaryzation_bernsen_node_controller.hpp"
 namespace Imager {
     using namespace NoderGraphics;
@@ -27,6 +28,8 @@ namespace Imager {
                 return new GrayenNodeController(NodeFactory::CreateNode(node_type), new GrayenNodeGraphics);
             case NodeFactory::NodeType::OTSU_BINARYZATION:
                 return new OTSUNodeController(NodeFactory::CreateNode(node_type), new Label_1_1("OTSU Node"));
+            case NodeFactory::NodeType::KITTLER_BINARYZATION:
+                return new KittlerNodeController(NodeFactory::CreateNode(node_type), new Label_1_1("Kittler Node"));
             case NodeFactory::NodeType::BERNSEN_BINARYZATION:
                 return new BernsenNodeController(NodeFactory::CreateNode(node_type), new BernsenNodeGraphics);
             default:
