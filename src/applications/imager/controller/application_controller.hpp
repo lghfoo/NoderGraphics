@@ -3,6 +3,7 @@
 #include"../../../core/controller/node_controller.hpp"
 #include"../../../core/controller/application_controller.hpp"
 #include"../../../applications/filer/controller/application_controller.hpp"
+#include"../../../applications/mather/controller/application_controller.hpp"
 #include"node_controller_factory.hpp"
 namespace Imager {
     class ApplicationController : public NoderGraphics::ApplicationController{
@@ -16,6 +17,10 @@ namespace Imager {
             main_view->AddContextAction("Operation/Binaryzation/OTSU", GetAddNodeHandler<NodeType::OTSU_BINARYZATION>());
             main_view->AddContextAction("Operation/Binaryzation/Kittler", GetAddNodeHandler<NodeType::KITTLER_BINARYZATION>());
             main_view->AddContextAction("Operation/Binaryzation/Bernsen", GetAddNodeHandler<NodeType::BERNSEN_BINARYZATION>());
+            main_view->AddContextAction("Histogram", GetAddNodeHandler<NodeType::IMAGE_HISTOGRAM>());
+            main_view->AddContextAction("Mather/Histogram", Mather::ApplicationController::
+                                        GetAddNodeHandler<Mather::NodeFactory::
+                                        NodeType::HISTOGRAM_VALUE>());
             main_view->AddContextAction("Filer/File", Filer::ApplicationController::
                                         GetAddNodeHandler<Filer::NodeFactory::
                                         NodeType::FILE_SELECT>());

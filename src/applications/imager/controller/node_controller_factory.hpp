@@ -14,6 +14,7 @@
 #include"binaryzation_otsu_node_controller.hpp"
 #include"binaryzation_kittler_node_controller.hpp"
 #include"binaryzation_bernsen_node_controller.hpp"
+#include"image_histogram_node_controller.hpp"
 namespace Imager {
     using namespace NoderGraphics;
     class NodeControllerFactory{
@@ -32,6 +33,8 @@ namespace Imager {
                 return new KittlerNodeController(NodeFactory::CreateNode(node_type), new Label_1_1("Kittler Node"));
             case NodeFactory::NodeType::BERNSEN_BINARYZATION:
                 return new BernsenNodeController(NodeFactory::CreateNode(node_type), new BernsenNodeGraphics);
+            case NodeFactory::NodeType::IMAGE_HISTOGRAM:
+                return new ImageHistogramNodeController(NodeFactory::CreateNode(node_type), new ImageHistogramNodeGraphics);
             default:
                 return nullptr;
             }

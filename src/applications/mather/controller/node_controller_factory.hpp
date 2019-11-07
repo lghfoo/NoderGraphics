@@ -3,6 +3,7 @@
 #include"Noder/src/applications/mather/node_factory.hpp"
 #include"value_node_controller.hpp"
 #include"op_node_controller.hpp"
+#include"histogram_value_node_controller.hpp"
 namespace Mather {
     using NodeType = NodeFactory::NodeType;
     using NodeController = NoderGraphics::NodeController;
@@ -22,6 +23,9 @@ case NodeType::e:                                                               
             BIN_OP_CASE(INT64_MULTIPLY, long long, "Int64 Multiplication")
             BIN_OP_CASE(INT64_DIVIDE, long long, "Int64 Division")
             BIN_OP_CASE(INT64_MODULUS, long long, "Int64 Modulus")
+            case NodeType::HISTOGRAM_VALUE:
+                ret = new HistogramValueNodeController(NodeFactory::CreateNode(nodeType), new HistogramValueNodeGraphics);
+                break;
             case NodeType::INT64_VALUE:
                 ret = new Int64ValueController(new ValueNode(), new Int64ValueNodeGraphics());
                 break;

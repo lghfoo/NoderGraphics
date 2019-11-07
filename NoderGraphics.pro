@@ -1,4 +1,4 @@
-QT += gui widgets
+QT += gui widgets charts
 
 CONFIG += c++11 console
 CONFIG -= app_bundle
@@ -34,20 +34,24 @@ HEADERS += \
     src/applications/imager/controller/binaryzation_kittler_node_controller.hpp \
     src/applications/imager/controller/binaryzation_otsu_node_controller.hpp \
     src/applications/imager/controller/grayen_node_controller.hpp \
+    src/applications/imager/controller/image_histogram_node_controller.hpp \
     src/applications/imager/controller/image_node_controller.hpp \
     src/applications/imager/controller/node_controller_factory.hpp \
     src/applications/imager/controller/ppm_fimage_node_controller.hpp \
     src/applications/imager/view/bernsen_node_graphics.hpp \
     src/applications/imager/view/grayen_node_graphics.hpp \
+    src/applications/imager/view/image_histogram_node_graphics.hpp \
     src/applications/imager/view/image_node_graphics - 副本.hpp \
     src/applications/imager/view/image_node_graphics - 副本.hpp \
     src/applications/imager/view/image_node_graphics.hpp \
     src/applications/imager/view/ppm_fimage_node_graphics.hpp \
     src/applications/mather/controller/application_controller.hpp \
+    src/applications/mather/controller/histogram_value_node_controller.hpp \
     src/applications/mather/controller/node_controller_factory.hpp \
     src/applications/mather/controller/op_node_controller.hpp \
     src/applications/mather/controller/value_node_controller.hpp \
     src/applications/mather/model/application.hpp \
+    src/applications/mather/view/histogram_value_node_graphics.hpp \
     src/applications/mather/view/node_graphics_factory.hpp \
     src/applications/mather/view/op_node_graphics.hpp \
     src/applications/mather/view/value_node_graphics.hpp \
@@ -59,6 +63,7 @@ HEADERS += \
     src/controls/custom_text_edit.hpp \
     src/controls/double_spin_box.hpp \
     src/controls/file_box.hpp \
+    src/controls/histogram_view.hpp \
     src/controls/image_view.hpp \
     src/controls/int64_spin_box.hpp \
     src/controls/spin_box_base.hpp \
@@ -71,7 +76,8 @@ HEADERS += \
     src/core/view/main_view.hpp \
     src/core/view/node_graphics.hpp \
     src/core/view/node_graphics_presets/node_graphics_presets.hpp \
-    src/core/view/port_view.hpp
+    src/core/view/port_view.hpp \
+    test/testqchart.hpp
 
 RESOURCES += \
     resources.qrc

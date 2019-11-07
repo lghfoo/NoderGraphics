@@ -16,6 +16,7 @@ namespace Mather {
             main_view->AddContextAction("Operation/Divide/Int64", GetAddNodeHandler<NodeType::INT64_DIVIDE>());
             main_view->AddContextAction("Operation/Modulus/Int64", GetAddNodeHandler<NodeType::INT64_MODULUS>());
             main_view->AddContextAction("Value/Int64", GetAddNodeHandler<NodeType::INT64_VALUE>());
+            main_view->AddContextAction("Value/Histogram", GetAddNodeHandler<NodeType::HISTOGRAM_VALUE>());
         }
 
         template<NodeType NODE_TYPE>

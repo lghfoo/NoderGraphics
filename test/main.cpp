@@ -6,6 +6,7 @@
 #include"src/applications/texter/controller/application_controller.hpp"
 #include"src/applications/imager/controller/application_controller.hpp"
 #include"src/core/controller/application_controller.hpp"
+#include"testqchart.hpp"
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -28,5 +29,6 @@ int main(int argc, char *argv[])
 
     main_window.show();
 
+    Test::TestQChart();
     return a.exec();
 }
