@@ -27,7 +27,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     src/applications/filer/controller/application_controller.hpp \
     src/applications/filer/controller/node_controller_factory.hpp \
-    src/applications/filer/controller/node_controllers.hpp \
+    src/applications/filer/controller/node_controlleres.hpp \
     src/applications/filer/controller/select_file_node_controller.hpp \
     src/applications/filer/view/node_graphicses.hpp \
     src/applications/filer/view/select_file_node_graphics.hpp \
@@ -59,8 +59,11 @@ HEADERS += \
     src/applications/mather/view/value_node_graphics.hpp \
     src/applications/texter/controller/application_controller.hpp \
     src/applications/texter/controller/node_controller_factory.hpp \
+    src/applications/texter/controller/node_controlleres.hpp \
     src/applications/texter/controller/text_value_node_controller.hpp \
+    src/applications/texter/view/node_graphicses.hpp \
     src/applications/texter/view/text_value_node_graphics.hpp \
+    src/controls/combo_box.hpp \
     src/controls/custom_label.hpp \
     src/controls/custom_text_edit.hpp \
     src/controls/double_spin_box.hpp \
