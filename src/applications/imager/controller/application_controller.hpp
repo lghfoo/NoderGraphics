@@ -22,7 +22,7 @@ namespace Imager {
                                         GetAddNodeHandler<Mather::NodeFactory::
                                         NodeType::HISTOGRAM_VALUE>());
             main_view->AddContextAction("Filer/File", Filer::ApplicationController::
-                                        GetAddNodeHandler<Filer::NodeFactory::
+                                        GetAddNodeHandler<Filer::NodeControllerFactory::
                                         NodeType::FILE_SELECT>());
         }
 

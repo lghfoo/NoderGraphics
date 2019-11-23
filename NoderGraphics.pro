@@ -27,7 +27,9 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     src/applications/filer/controller/application_controller.hpp \
     src/applications/filer/controller/node_controller_factory.hpp \
+    src/applications/filer/controller/node_controllers.hpp \
     src/applications/filer/controller/select_file_node_controller.hpp \
+    src/applications/filer/view/node_graphicses.hpp \
     src/applications/filer/view/select_file_node_graphics.hpp \
     src/applications/imager/controller/application_controller.hpp \
     src/applications/imager/controller/binaryzation_bernsen_node_controller.hpp \

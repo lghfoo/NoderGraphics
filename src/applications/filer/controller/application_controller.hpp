@@ -3,15 +3,18 @@
 #include"../../../core/controller/node_controller.hpp"
 #include"../../../core/controller/port_controller.hpp"
 #include"../../../applications/texter/controller/application_controller.hpp"
+#include"../../../applications/mather/controller/application_controller.hpp"
 #include"node_controller_factory.hpp"
 namespace Filer {
     using namespace NoderGraphics;
     class ApplicationController{
         using AddNodeHandler = MainView::AddNodeHandler;
-        using NodeType = NodeFactory::NodeType;
+        using NodeType = NodeControllerFactory::NodeType;
     public:
         ApplicationController(){
-            main_view->AddContextAction("File", GetAddNodeHandler<NodeType::FILE_SELECT>());
+            main_view->AddContextAction("File", GetAddNodeHandler<NodeControllerFactory::FILE_SELECT>());
+            main_view->AddContextAction("Utility/File Length", GetAddNodeHandler<NodeControllerFactory::FILELEN_NODE>());
+            main_view->AddContextAction("Mather/Value/Int64", Mather::ApplicationController::GetAddNodeHandler<Mather::NodeFactory::NodeType::INT64_VALUE>());
             main_view->AddContextAction("Texter/Text", Texter::ApplicationController::GetAddNodeHandler<Texter::NodeFactory::NodeType::TEXT_VALUE>());
         }
 

@@ -22,13 +22,13 @@ int main(int argc, char *argv[])
     QTabWidget tab_widget;
     main_window.setCentralWidget(&tab_widget);
 
-    tab_widget.addTab(imager_controller->GetMainView(), "Imager");
     tab_widget.addTab(filer_controller->GetMainView(), "Filer");
+    tab_widget.addTab(imager_controller->GetMainView(), "Imager");
     tab_widget.addTab(texter_controller->GetMainView(), "Texter");
     tab_widget.addTab(mather_controller->GetMainView(), "Mather");
 
     main_window.show();
 
-    Test::TestQChart();
+//    Test::TestQChart();
     return a.exec();
 }
