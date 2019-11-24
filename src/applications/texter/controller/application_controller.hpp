@@ -6,7 +6,7 @@
 namespace Texter {
     class ApplicationController : public NoderGraphics::ApplicationController{
         using AddNodeHandler = MainView::AddNodeHandler;
-        using NodeType = NodeFactory::NodeType;
+        using NodeType = NodeControllerFactory::NodeType;
     public:
         ApplicationController(){
             main_view->AddContextAction("Text", GetAddNodeHandler<NodeType::TEXT_VALUE>());

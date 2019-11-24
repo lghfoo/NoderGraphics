@@ -3,14 +3,21 @@
 #include"../../../core/controller/node_controller.hpp"
 #include"text_value_node_controller.hpp"
 #include"../view/text_value_node_graphics.hpp"
+#include"../controller/node_controlleres.hpp"
 namespace Texter {
     using namespace NoderGraphics;
     class NodeControllerFactory{
     public:
-        static NodeController* CreateNodeController(const NodeFactory::NodeType& node_type){
+        enum NodeType{
+            TEXT_VALUE,
+            TO_STRING
+        };
+        static NodeController* CreateNodeController(const NodeType& node_type){
             switch (node_type) {
-            case NodeFactory::NodeType::TEXT_VALUE:
-                return new TextValueNodeController(NodeFactory::CreateNode(node_type), new TextValueNodeGraphics);
+            case TEXT_VALUE:
+                return new TextValueNodeController(new TextNode, new TextValueNodeGraphics);
+            case TO_STRING:
+                return new ToStringNodeController(new ToStringNode, new ToStringNodeGraphics);
             default:
                 return nullptr;
             }

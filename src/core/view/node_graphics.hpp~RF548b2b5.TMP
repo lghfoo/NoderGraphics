@@ -93,7 +93,7 @@ namespace NoderGraphics {
         int column = 0;
         int current_row_span = 1;
         int current_column_span = 1;
-        QGraphicsGridLayout* layout = new QGraphicsGridLayout();
+        QGraphicsGridLayout* layout = = new QGraphicsGridLayout();
         QList<WidgetProxy*>* widget_proxies = nullptr;
         Qt::Alignment alignment = Qt::AlignCenter;
     public:
