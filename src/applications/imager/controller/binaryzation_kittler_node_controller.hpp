@@ -13,13 +13,11 @@ namespace Imager {
         PortController* input_port_controller = nullptr;
         PortController* output_port_controller = nullptr;
     public:
-        KittlerNodeController(Node* node,
-                                NodeGraphics* graphics)
-                               :NodeController(node, graphics){
-            auto value_graphics = dynamic_cast<Label_1_1*>(graphics);
-            if(!value_graphics)return;
-            auto value_node = dynamic_cast<KittlerNode*>(node);
-            if(!value_node)return;
+        KittlerNodeController(){
+            this->node = new KittlerNode;
+            this->node_graphics = new Label_1_1("Kittler Node");
+            auto value_graphics = static_cast<Label_1_1*>(this->node_graphics);
+            auto value_node = static_cast<KittlerNode*>(this->node);
             value_node->GetInputPort()->FlushData(new ImageData);
             value_node->GetOutputPort()->FlushData(new ImageData);
             // todo: use shared_ptr?

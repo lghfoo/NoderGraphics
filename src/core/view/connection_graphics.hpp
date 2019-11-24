@@ -11,7 +11,7 @@ namespace NoderGraphics {
             auto p1 = this->line().p1();
             auto p2 = this->line().p2();
             auto dp = p2 - p1;
-            auto radio = 0.3f;
+            auto radio = 0.3;
             auto ctrlPt1 = QPointF(p1.x() + dp.x() * radio, p1.y());
             auto ctrlPt2 = QPointF(p2.x() - dp.x() * radio, p2.y());
             path.moveTo(p1);

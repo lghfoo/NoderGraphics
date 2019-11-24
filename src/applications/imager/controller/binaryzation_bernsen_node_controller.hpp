@@ -14,13 +14,11 @@ namespace Imager {
         PortController* input_port_2_controller = nullptr;
         PortController* output_port_controller = nullptr;
     public:
-        BernsenNodeController(Node* node,
-                                NodeGraphics* graphics)
-                               :NodeController(node, graphics){
-            auto value_graphics = dynamic_cast<BernsenNodeGraphics*>(graphics);
-            if(!value_graphics)return;
-            auto value_node = dynamic_cast<BernsenNode*>(node);
-            if(!value_node)return;
+        BernsenNodeController(){
+            this->node = new BernsenNode;
+            this->node_graphics = new BernsenNodeGraphics;
+            auto value_graphics = static_cast<BernsenNodeGraphics*>(this->node_graphics);
+            auto value_node = static_cast<BernsenNode*>(this->node);
             value_node->GetInputPort1()->FlushData(new ImageData);
             value_node->GetInputPort2()->FlushData(new Mather::Number<long long>());
             value_node->GetOutputPort()->FlushData(new ImageData);

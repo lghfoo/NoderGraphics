@@ -15,13 +15,11 @@ namespace Mather {
         PortController* input_port_controller = nullptr;
         PortController* output_port_controller = nullptr;
     public:
-        HistogramValueNodeController(Node* node,
-                             NodeGraphics* graphics)
-                            :NodeController(node, graphics){
-            auto value_graphics = dynamic_cast<HistogramValueNodeGraphics*>(graphics);
-            if(!value_graphics)return;
-            auto value_node = dynamic_cast<HistogramNode*>(node);
-            if(!value_node)return;
+        HistogramValueNodeController(){
+            this->node = new HistogramNode;
+            this->node_graphics = new HistogramValueNodeGraphics;
+            auto value_graphics = static_cast<HistogramValueNodeGraphics*>(this->node_graphics);
+            auto value_node = static_cast<HistogramNode*>(this->node);
             value_node->GetInputPort()->FlushData(new VectorData<int>());
             value_node->GetOutputPort()->FlushData(new VectorData<int>());
             // todo: use shared_ptr?

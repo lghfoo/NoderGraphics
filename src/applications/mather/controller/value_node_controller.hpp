@@ -15,13 +15,11 @@ namespace Mather {
         PortController* input_port_controller = nullptr;
         PortController* output_port_controller = nullptr;
     public:
-        Int64ValueController(Node* node,
-                             NodeGraphics* graphics)
-                            :NodeController(node, graphics){
-            auto value_graphics = dynamic_cast<Int64ValueNodeGraphics*>(graphics);
-            if(!value_graphics)return;
-            auto value_node = dynamic_cast<ValueNode*>(node);
-            if(!value_node)return;
+        Int64ValueController(){
+            this->node = new ValueNode;
+            this->node_graphics = new Int64ValueNodeGraphics;
+            auto value_graphics = static_cast<Int64ValueNodeGraphics*>(this->node_graphics);
+            auto value_node = static_cast<ValueNode*>(this->node);
             value_node->GetInputPort()->FlushData(new Number<long long>());
             value_node->GetOutputPort()->FlushData(new Number<long long>());
             // todo: use shared_ptr?

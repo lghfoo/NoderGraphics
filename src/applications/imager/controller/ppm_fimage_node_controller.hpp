@@ -12,13 +12,11 @@ namespace Imager {
         PortController* input_port_controller = nullptr;
         PortController* output_port_controller = nullptr;
     public:
-        PPMFImageNodeController(Node* node,
-                                NodeGraphics* graphics)
-                               :NodeController(node, graphics){
-            auto value_graphics = dynamic_cast<PPMFImageNodeGraphics*>(graphics);
-            if(!value_graphics)return;
-            auto value_node = dynamic_cast<PPMFImageNode*>(node);
-            if(!value_node)return;
+        PPMFImageNodeController(){
+            this->node = new PPMFImageNode;
+            this->node_graphics = new PPMFImageNodeGraphics;
+            auto value_graphics = static_cast<PPMFImageNodeGraphics*>(this->node_graphics);
+            auto value_node = static_cast<PPMFImageNode*>(this->node);
             value_node->GetInputPort()->FlushData(new Text());
             value_node->GetOutputPort()->FlushData(new ImageData());
             // todo: use shared_ptr?

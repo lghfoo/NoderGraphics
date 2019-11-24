@@ -13,10 +13,6 @@ namespace NoderGraphics {
         Node* node = nullptr;
         NodeGraphics* node_graphics = nullptr;
     public:
-        NodeController(Node* node, NodeGraphics* graphics)
-                      :node(node), node_graphics(graphics){
-        }
-
         Node* GetNode(){
             return node;
         }

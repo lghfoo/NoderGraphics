@@ -12,13 +12,11 @@ namespace Imager {
         PortController* input_port_controller = nullptr;
         PortController* output_port_controller = nullptr;
     public:
-        ImageNodeController(Node* node,
-                                NodeGraphics* graphics)
-                               :NodeController(node, graphics){
-            auto value_graphics = dynamic_cast<ImageNodeGraphics*>(graphics);
-            if(!value_graphics)return;
-            auto value_node = dynamic_cast<ImageNode*>(node);
-            if(!value_node)return;
+        ImageNodeController(){
+            this->node = new ImageNode;
+            this->node_graphics = new ImageNodeGraphics;
+            auto value_graphics = static_cast<ImageNodeGraphics*>(this->node_graphics);
+            auto value_node = static_cast<ImageNode*>(this->node);
             value_node->GetInputPort()->FlushData(new ImageData);
             value_node->GetOutputPort()->FlushData(new ImageData);
             // todo: use shared_ptr?

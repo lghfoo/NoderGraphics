@@ -13,13 +13,11 @@ namespace Imager {
         PortController* input_port_controller = nullptr;
         PortController* output_port_controller = nullptr;
     public:
-        GrayenNodeController(Node* node,
-                                NodeGraphics* graphics)
-                               :NodeController(node, graphics){
-            auto value_graphics = dynamic_cast<GrayenNodeGraphics*>(graphics);
-            if(!value_graphics)return;
-            auto value_node = dynamic_cast<GrayenNode*>(node);
-            if(!value_node)return;
+        GrayenNodeController(){
+            this->node = new GrayenNode;
+            this->node_graphics = new GrayenNodeGraphics;
+            auto value_graphics = static_cast<GrayenNodeGraphics*>(this->node_graphics);
+            auto value_node = static_cast<GrayenNode*>(this->node);
             value_node->GetInputPort()->FlushData(new ImageData);
             value_node->GetOutputPort()->FlushData(new ImageData);
             // todo: use shared_ptr?

@@ -51,14 +51,12 @@ namespace Filer {
 
     class PickNumberFromBufferNodeController : public NodeController{
     public:
-        PickNumberFromBufferNodeController(Noder::Node* node,
-                                 NoderGraphics::NodeGraphics* graphics)
-                                :NoderGraphics::NodeController(node, graphics){
+        PickNumberFromBufferNodeController(){
             printf("BEFORE CREATE PNFB CONTROLLER\n");
-            auto pick_node = dynamic_cast<PickNumberFromBufferNode*>(node);
-            if(!pick_node)return;
-            auto pick_graphics = dynamic_cast<PickNumberFromBufferNodeGraphics*>(graphics);
-            if(!pick_graphics)return;
+            this->node = new PickNumberFromBufferNode;
+            this->node_graphics = new PickNumberFromBufferNodeGraphics;
+            auto pick_node = static_cast<PickNumberFromBufferNode*>(this->node);
+            auto pick_graphics = static_cast<PickNumberFromBufferNodeGraphics*>(this->node_graphics);
 #define PNFBN PickNumberFromBufferNode
 #define PNFBG PickNumberFromBufferNodeGraphics
             {

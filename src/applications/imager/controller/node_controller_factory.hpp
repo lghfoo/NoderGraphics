@@ -22,19 +22,19 @@ namespace Imager {
         static NodeController* CreateNodeController(const NodeFactory::NodeType& node_type){
             switch (node_type) {
             case NodeFactory::NodeType::IMAGE_VALUE:
-                return new ImageNodeController(NodeFactory::CreateNode(node_type), new ImageNodeGraphics);
+                return new ImageNodeController;
             case NodeFactory::NodeType::PPM_FILE_2_IMAGE:
-                return new PPMFImageNodeController(NodeFactory::CreateNode(node_type), new PPMFImageNodeGraphics);
+                return new PPMFImageNodeController;
             case NodeFactory::NodeType::GRAYEN:
-                return new GrayenNodeController(NodeFactory::CreateNode(node_type), new GrayenNodeGraphics);
+                return new GrayenNodeController;
             case NodeFactory::NodeType::OTSU_BINARYZATION:
-                return new OTSUNodeController(NodeFactory::CreateNode(node_type), new Label_1_1("OTSU Node"));
+                return new OTSUNodeController;
             case NodeFactory::NodeType::KITTLER_BINARYZATION:
-                return new KittlerNodeController(NodeFactory::CreateNode(node_type), new Label_1_1("Kittler Node"));
+                return new KittlerNodeController;
             case NodeFactory::NodeType::BERNSEN_BINARYZATION:
-                return new BernsenNodeController(NodeFactory::CreateNode(node_type), new BernsenNodeGraphics);
+                return new BernsenNodeController;
             case NodeFactory::NodeType::IMAGE_HISTOGRAM:
-                return new ImageHistogramNodeController(NodeFactory::CreateNode(node_type), new ImageHistogramNodeGraphics);
+                return new ImageHistogramNodeController;
             default:
                 return nullptr;
             }

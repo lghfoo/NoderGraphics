@@ -9,13 +9,11 @@ namespace Filer {
         PortController* input_port_controller = nullptr;
         PortController* output_port_controller = nullptr;
     public:
-        SelectFileNodeController(Noder::Node* node,
-                                 NoderGraphics::NodeGraphics* graphics)
-                                :NoderGraphics::NodeController(node, graphics){
-            auto value_graphics = dynamic_cast<SelectFileNodeGraphics*>(graphics);
-            if(!value_graphics)return;
-            auto value_node = dynamic_cast<FileNode*>(node);
-            if(!value_node)return;
+        SelectFileNodeController(){
+            this->node = new FileNode;
+            this->node_graphics = new SelectFileNodeGraphics;
+            auto value_graphics = static_cast<SelectFileNodeGraphics*>(this->node_graphics);
+            auto value_node = static_cast<FileNode*>(this->node);
             value_node->GetInputPort()->FlushData(new Text);
             value_node->GetOutputPort()->FlushData(new Text);
             // todo: use shared_ptr?

@@ -19,13 +19,13 @@ namespace Filer {
         static NodeController* CreateNodeController(const NodeType& node_type){
             switch (node_type) {
             case FILE_SELECT:
-                return new SelectFileNodeController(new FileNode, new SelectFileNodeGraphics);
+                return new SelectFileNodeController;
             case FILELEN_NODE:
-                return new FilelenNodeController(new FilelenNode, new FilelenNodeGraphics);
+                return new FilelenNodeController;
             case PICK_BUFFER_FROM_FILE_NODE:
-                return new PickBufferFromFileNodeController(new PickBufferFromFileNode, new PickBufferFromFileNodeGraphics);
+                return new PickBufferFromFileNodeController;
             case PICK_NUMBER_FROM_BUFFER_NODE:
-                return new PickNumberFromBufferNodeController(new PickNumberFromBufferNode, new PickNumberFromBufferNodeGraphics);
+                return new PickNumberFromBufferNodeController;
             default:
                 return nullptr;
             }
