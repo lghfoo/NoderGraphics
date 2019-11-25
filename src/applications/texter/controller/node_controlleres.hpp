@@ -11,13 +11,11 @@ namespace Texter {
         PortController* input_port_controller = nullptr;
         PortController* output_port_controller = nullptr;
     public:
-        ToStringNodeController(Node* node,
-                                NodeGraphics* graphics)
-                               :NodeController(node, graphics){
-            auto value_graphics = dynamic_cast<ToStringNodeGraphics*>(graphics);
-            if(!value_graphics)return;
-            auto value_node = dynamic_cast<ToStringNode*>(node);
-            if(!value_node)return;
+        ToStringNodeController(){
+            this->node = new ToStringNode;
+            this->node_graphics = new ToStringNodeGraphics;
+            auto value_graphics = static_cast<ToStringNodeGraphics*>(this->node_graphics);
+            auto value_node = static_cast<ToStringNode*>(this->node);
             // todo: use shared_ptr?
             input_port_controller = new PortController(value_node->GetInputPort(ToStringNode::DATA_INPUT).get(), value_graphics->GetUI<PortProxy>(ToStringNodeGraphics::INPUT_PORT));
             output_port_controller = new PortController(value_node->GetOutputPort(ToStringNode::STRING_OUTPUT).get(), value_graphics->GetUI<PortProxy>(ToStringNodeGraphics::OUTPUT_PORT));

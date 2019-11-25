@@ -15,9 +15,9 @@ namespace Texter {
         static NodeController* CreateNodeController(const NodeType& node_type){
             switch (node_type) {
             case TEXT_VALUE:
-                return new TextValueNodeController(new TextNode, new TextValueNodeGraphics);
+                return new TextValueNodeController;
             case TO_STRING:
-                return new ToStringNodeController(new ToStringNode, new ToStringNodeGraphics);
+                return new ToStringNodeController;
             default:
                 return nullptr;
             }

@@ -24,10 +24,10 @@ case NodeType::e:                                                               
             BIN_OP_CASE(INT64_DIVIDE, long long, "Int64 Division")
             BIN_OP_CASE(INT64_MODULUS, long long, "Int64 Modulus")
             case NodeType::HISTOGRAM_VALUE:
-                ret = new HistogramValueNodeController(NodeFactory::CreateNode(nodeType), new HistogramValueNodeGraphics);
+                ret = new HistogramValueNodeController;
                 break;
             case NodeType::INT64_VALUE:
-                ret = new Int64ValueController(new ValueNode(), new Int64ValueNodeGraphics());
+                ret = new Int64ValueController;
                 break;
             default:
                 break;
