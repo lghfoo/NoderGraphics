@@ -15,7 +15,7 @@ namespace Mather {
         Q_OBJECT
     public:
         enum {INPUT_PORT, HISTOGRAM_VIEW, OUTPUT_PORT, UI_COUNT};
-        HistogramValueNodeGraphics(){
+        HistogramValueNodeGraphics(PObject arg = nullptr){
             this->setLayout(NodeLayoutBuilder(&(this->uis), UI_COUNT)
                             .Align(Qt::AlignCenter)
                             .Add(new LabelProxy("Histogram"), 0, 0, 1, 3).NextRow()

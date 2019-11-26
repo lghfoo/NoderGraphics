@@ -7,15 +7,15 @@
 namespace Texter {
     using namespace NoderGraphics;
     using namespace Noder;
-    class TextValueNodeController : public NodeController{
+    class TextValueNodeController : public NodeController<TextNode, TextValueNodeGraphics>{
         PortController* input_port_controller = nullptr;
         PortController* output_port_controller = nullptr;
     public:
-        TextValueNodeController(){
-            this->node = new TextNode;
-            this->node_graphics = new TextValueNodeGraphics;
-            auto value_graphics = dynamic_cast<TextValueNodeGraphics*>(this->node_graphics);
-            auto value_node = dynamic_cast<TextNode*>(this->node);
+        TextValueNodeController(PObject graphics_arg = nullptr,
+                                PObject node_arg = nullptr)
+            :NodeController<TextNode, TextValueNodeGraphics> (graphics_arg, node_arg){
+            auto value_graphics = this->node_graphics;
+            auto value_node = this->node;
             value_node->GetInputPort()->FlushData(new Text());
             value_node->GetOutputPort()->FlushData(new Text());
             // todo: use shared_ptr?

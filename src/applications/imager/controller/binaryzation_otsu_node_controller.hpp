@@ -9,15 +9,15 @@
 namespace Imager {
     using namespace NoderGraphics;
     using namespace Noder;
-    class OTSUNodeController : public NodeController{
+    class OTSUNodeController : public NodeController<OTSUNode, Label_1_1>{
         PortController* input_port_controller = nullptr;
         PortController* output_port_controller = nullptr;
     public:
-        OTSUNodeController(){
-            this->node = new OTSUNode;
-            this->node_graphics = new Label_1_1("OTSU Node");
-            auto value_graphics = static_cast<Label_1_1*>(this->node_graphics);
-            auto value_node = static_cast<OTSUNode*>(this->node);
+        OTSUNodeController(PObject graphics_arg = nullptr,
+                           PObject node_arg = nullptr)
+            :NodeController<OTSUNode, Label_1_1> (graphics_arg, node_arg){
+            auto value_graphics = this->node_graphics;
+            auto value_node = this->node;
             value_node->GetInputPort()->FlushData(new ImageData);
             value_node->GetOutputPort()->FlushData(new ImageData);
             // todo: use shared_ptr?

@@ -9,7 +9,7 @@ namespace Imager {
     class PPMFImageNodeGraphics : public NodeGraphics{
     public:
         enum {INPUT_PORT, OUTPUT_PORT, UI_COUNT};
-        PPMFImageNodeGraphics(){
+        PPMFImageNodeGraphics(PObject arg = nullptr){
             this->setLayout(NodeLayoutBuilder(&(this->uis), UI_COUNT)
                             .Add(new LabelProxy("PPM File to Image"), 0, 0, 1, 3).NextRow()
                             .Add(INPUT_PORT, new PortProxy).Add(new LabelProxy("filename")).Add(OUTPUT_PORT, new PortProxy)

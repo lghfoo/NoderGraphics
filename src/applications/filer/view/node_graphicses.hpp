@@ -11,7 +11,7 @@ namespace Filer {
     class FilelenNodeGraphics : public NodeGraphics{
     public:
         enum {INPUT_PORT, FILE_BOX, OUTPUT_PORT, UI_COUNT};
-        FilelenNodeGraphics(){
+        FilelenNodeGraphics(PObject arg = nullptr){
             this->setLayout(NodeLayoutBuilder(&(this->uis), UI_COUNT)
                             .Add(new LabelProxy("Filelen"), 0, 0, 1, 3).NextRow()
                             .Add(INPUT_PORT, new PortProxy).Add(FILE_BOX, new FileBoxProxy).Add(OUTPUT_PORT, new PortProxy)
@@ -27,7 +27,7 @@ namespace Filer {
              END_ADDRESS_OUTPUT_PORT,
              BUFFER_OUTPUT_PORT,
              UI_COUNT};
-        PickBufferFromFileNodeGraphics(){
+        PickBufferFromFileNodeGraphics(PObject arg = nullptr){
             this->setLayout(NodeLayoutBuilder(&(this->uis), UI_COUNT)
                             .Add(new LabelProxy("Pick Buffer From File"), 0, 0, 1, 3).NextRow()
                             .Add(FILE_INPUT_PORT, new PortProxy).Add(FILE_BOX, new FileBoxProxy).NextRow()
@@ -51,7 +51,7 @@ namespace Filer {
             NUMBER_OUTPUT_PORT,
             UI_COUNT
         };
-        PickNumberFromBufferNodeGraphics(){
+        PickNumberFromBufferNodeGraphics(PObject arg = nullptr){
             this->setLayout(NodeLayoutBuilder(&(this->uis), UI_COUNT)
                             .Add(new LabelProxy("Pick Number From Buffer"), 0, 0, 1, 3).NextRow()
                             .Add(BUFFER_INPUT_PORT, new PortProxy).Add(new LabelProxy("Target Buffer", Qt::AlignLeft | Qt::AlignVCenter)).NextRow()

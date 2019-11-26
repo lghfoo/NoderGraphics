@@ -9,7 +9,7 @@ namespace Imager {
     class BernsenNodeGraphics : public NodeGraphics{
     public:
         enum {INPUT_IMAGE_PORT, WINDOW_SIZE_PORT, WINDOW_SIZE_BOX, OUTPUT_PORT, UI_COUNT};
-        BernsenNodeGraphics(){
+        BernsenNodeGraphics(PObject arg = nullptr){
             this->setLayout(NodeLayoutBuilder(&(this->uis), UI_COUNT)
                             .Add(new LabelProxy("Bernsen Node"), 0, 0, 1, 3).NextRow()
                             .Add(INPUT_IMAGE_PORT, new PortProxy).Add(new LabelProxy("Input Image", Qt::AlignLeft)).NextRow()

@@ -5,11 +5,13 @@
 #include"Noder/src/applications/filer/nodes.hpp"
 namespace Filer {
     using namespace NoderGraphics;
-    class FilelenNodeController : public NodeController{
+    class FilelenNodeController : public NodeController<FilelenNode, FilelenNodeGraphics>{
         PortController* input_port_controller = nullptr;
         PortController* output_port_controller = nullptr;
     public:
-        FilelenNodeController(){
+        FilelenNodeController(PObject graphics_arg = nullptr,
+                              PObject node_arg = nullptr)
+            :NodeController<FilelenNode, FilelenNodeGraphics> (graphics_arg, node_arg){
             this->node_graphics = new FilelenNodeGraphics;
             this->node = new FilelenNode;
             auto filelen_node = static_cast<FilelenNode*>(this->node);
@@ -37,26 +39,27 @@ namespace Filer {
         }
     };
 
-    class PickBufferFromFileNodeController : public NodeController{
+    class PickBufferFromFileNodeController : public NodeController<PickBufferFromFileNode, PickBufferFromFileNodeGraphics>{
     public:
-        PickBufferFromFileNodeController(){
+        PickBufferFromFileNodeController(PObject graphics_arg = nullptr,
+                                         PObject node_arg = nullptr)
+            :NodeController<PickBufferFromFileNode, PickBufferFromFileNodeGraphics> (graphics_arg, node_arg){
             printf("BEFORE CREATE PBFF CONTROLLER\n");
-            this->node = new PickBufferFromFileNode;
-            this->node_graphics = new PickBufferFromFileNodeGraphics;
-            auto pick_node = static_cast<PickBufferFromFileNode*>(this->node);
-            auto pick_graphics = static_cast<PickBufferFromFileNodeGraphics*>(this->node_graphics);
+            auto pick_node = this->node;
+            auto pick_graphics = this->node_graphics;
             printf("END CREATE PBFF CONTROLLER\n");
         }
     };
 
-    class PickNumberFromBufferNodeController : public NodeController{
+    class PickNumberFromBufferNodeController
+            : public NodeController<PickNumberFromBufferNode, PickNumberFromBufferNodeGraphics>{
     public:
-        PickNumberFromBufferNodeController(){
+        PickNumberFromBufferNodeController(PObject graphics_arg = nullptr,
+                                           PObject node_arg = nullptr)
+            :NodeController<PickNumberFromBufferNode, PickNumberFromBufferNodeGraphics>(graphics_arg, node_arg){
             printf("BEFORE CREATE PNFB CONTROLLER\n");
-            this->node = new PickNumberFromBufferNode;
-            this->node_graphics = new PickNumberFromBufferNodeGraphics;
-            auto pick_node = static_cast<PickNumberFromBufferNode*>(this->node);
-            auto pick_graphics = static_cast<PickNumberFromBufferNodeGraphics*>(this->node_graphics);
+            auto pick_node = this->node;
+            auto pick_graphics = this->node_graphics;
 #define PNFBN PickNumberFromBufferNode
 #define PNFBG PickNumberFromBufferNodeGraphics
             {

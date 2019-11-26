@@ -9,7 +9,7 @@ namespace Imager {
     class ImageNodeGraphics : public NodeGraphics{
     public:
         enum {NAME_LABEL, INPUT_PORT, IMAGE_VIEW, OUTPUT_PORT, UI_COUNT};
-        ImageNodeGraphics(){
+        ImageNodeGraphics(PObject arg = nullptr){
             this->setLayout(NodeLayoutBuilder(&(this->uis), UI_COUNT)
                             .Add(NAME_LABEL, new LabelProxy("Image"), 0, 0, 1, 3).NextRow()
                             .Add(INPUT_PORT, new PortProxy).Add(IMAGE_VIEW, new ImageViewProxy).Add(OUTPUT_PORT, new PortProxy)

@@ -6,20 +6,19 @@
 #include"../view/histogram_value_node_graphics.hpp"
 #include"Noder/src/applications/mather/value_node.hpp"
 namespace Mather {
-    class HistogramValueNodeController: public NoderGraphics::NodeController{
+    class HistogramValueNodeController: public NoderGraphics::NodeController<HistogramNode, HistogramValueNodeGraphics>{
     private:
         using Node = Noder::Node;
         using NodeGraphics = NoderGraphics::NodeGraphics;
-        using NodeController = NoderGraphics::NodeController;
 
         PortController* input_port_controller = nullptr;
         PortController* output_port_controller = nullptr;
     public:
-        HistogramValueNodeController(){
-            this->node = new HistogramNode;
-            this->node_graphics = new HistogramValueNodeGraphics;
-            auto value_graphics = static_cast<HistogramValueNodeGraphics*>(this->node_graphics);
-            auto value_node = static_cast<HistogramNode*>(this->node);
+        HistogramValueNodeController(PObject graphics_arg = nullptr,
+                                     PObject node_arg = nullptr)
+            :NoderGraphics::NodeController<HistogramNode, HistogramValueNodeGraphics>(graphics_arg, node_arg){
+            auto value_graphics = this->node_graphics;
+            auto value_node = this->node;
             value_node->GetInputPort()->FlushData(new VectorData<int>());
             value_node->GetOutputPort()->FlushData(new VectorData<int>());
             // todo: use shared_ptr?

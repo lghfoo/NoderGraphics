@@ -6,20 +6,18 @@
 #include"../view/value_node_graphics.hpp"
 #include"Noder/src/applications/mather/value_node.hpp"
 namespace Mather {
-    class Int64ValueController: public NoderGraphics::NodeController{
+    class Int64ValueController: public NoderGraphics::NodeController<ValueNode, Int64ValueNodeGraphics>{
     private:
         using Node = Noder::Node;
         using NodeGraphics = NoderGraphics::NodeGraphics;
-        using NodeController = NoderGraphics::NodeController;
-
         PortController* input_port_controller = nullptr;
         PortController* output_port_controller = nullptr;
     public:
-        Int64ValueController(){
-            this->node = new ValueNode;
-            this->node_graphics = new Int64ValueNodeGraphics;
-            auto value_graphics = static_cast<Int64ValueNodeGraphics*>(this->node_graphics);
-            auto value_node = static_cast<ValueNode*>(this->node);
+        Int64ValueController(PObject graphics_arg = nullptr,
+                             PObject node_arg = nullptr)
+            :NoderGraphics::NodeController<ValueNode, Int64ValueNodeGraphics> (graphics_arg, node_arg){
+            auto value_graphics = this->node_graphics;
+            auto value_node = this->node;
             value_node->GetInputPort()->FlushData(new Number<long long>());
             value_node->GetOutputPort()->FlushData(new Number<long long>());
             // todo: use shared_ptr?

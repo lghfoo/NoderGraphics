@@ -5,15 +5,15 @@
 #include"Noder/src/applications/filer/file_node.hpp"
 namespace Filer {
     using namespace NoderGraphics;
-    class SelectFileNodeController : public NodeController{
+    class SelectFileNodeController : public NodeController<FileNode, SelectFileNodeGraphics>{
         PortController* input_port_controller = nullptr;
         PortController* output_port_controller = nullptr;
     public:
-        SelectFileNodeController(){
-            this->node = new FileNode;
-            this->node_graphics = new SelectFileNodeGraphics;
-            auto value_graphics = static_cast<SelectFileNodeGraphics*>(this->node_graphics);
-            auto value_node = static_cast<FileNode*>(this->node);
+        SelectFileNodeController(PObject graphics_arg = nullptr,
+                                 PObject node_arg = nullptr)
+            :NodeController<FileNode, SelectFileNodeGraphics> (graphics_arg, node_arg){
+            auto value_graphics = this->node_graphics;
+            auto value_node = this->node;
             value_node->GetInputPort()->FlushData(new Text);
             value_node->GetOutputPort()->FlushData(new Text);
             // todo: use shared_ptr?

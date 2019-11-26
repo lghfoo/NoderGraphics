@@ -9,15 +9,15 @@
 namespace Imager {
     using namespace NoderGraphics;
     using namespace Noder;
-    class GrayenNodeController : public NodeController{
+    class GrayenNodeController : public NodeController<GrayenNode, GrayenNodeGraphics>{
         PortController* input_port_controller = nullptr;
         PortController* output_port_controller = nullptr;
     public:
-        GrayenNodeController(){
-            this->node = new GrayenNode;
-            this->node_graphics = new GrayenNodeGraphics;
-            auto value_graphics = static_cast<GrayenNodeGraphics*>(this->node_graphics);
-            auto value_node = static_cast<GrayenNode*>(this->node);
+        GrayenNodeController(PObject graphics_arg = nullptr,
+                             PObject node_arg = nullptr)
+            :NodeController<GrayenNode, GrayenNodeGraphics> (graphics_arg, node_arg){
+            auto value_graphics = this->node_graphics;
+            auto value_node = this->node;
             value_node->GetInputPort()->FlushData(new ImageData);
             value_node->GetOutputPort()->FlushData(new ImageData);
             // todo: use shared_ptr?

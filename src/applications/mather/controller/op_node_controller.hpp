@@ -3,25 +3,24 @@
 #include"../../../core/controller/node_controller.hpp"
 #include"../../../core/controller/port_controller.hpp"
 #include"../view/op_node_graphics.hpp"
-#include"Noder/src/applications/mather/node_factory.hpp"
+#include"Noder/src/applications/mather/op_node.hpp"
 namespace Mather {
-    template <typename OpNodeType, typename DataType>
-    class BinaryOpNodeController : public NoderGraphics::NodeController{
+    template <typename OpNodeType, typename DataType, typename GraphicsType>
+    class BinaryOpNodeController : public NoderGraphics::NodeController<OpNodeType, GraphicsType>{
         using PortController = NoderGraphics::PortController;
     private:
         using Node = Noder::Node;
         using NodeGraphics = NoderGraphics::NodeGraphics;
-        using NodeController = NoderGraphics::NodeController;
 
         PortController* lhs_input_port_controller = nullptr;
         PortController* rhs_input_port_controller = nullptr;
         PortController* output_port_controller = nullptr;
     public:
-        BinaryOpNodeController(const QString& name){
-            this->node = new OpNodeType;
-            this->node_graphics = new BinaryOpNodeGraphics(name);
-            auto value_graphics = dynamic_cast<BinaryOpNodeGraphics*>(this->node_graphics);
-            auto value_node = dynamic_cast<BinaryOpNode*>(this->node);
+        BinaryOpNodeController(PObject graphics_arg = nullptr,
+                               PObject node_arg = nullptr)
+            :NoderGraphics::NodeController<OpNodeType, GraphicsType> (graphics_arg, node_arg){
+            auto value_graphics = this->node_graphics;
+            auto value_node = this->node;
             value_node->GetInputPort1()->FlushData(new Number<DataType>());
             value_node->GetInputPort2()->FlushData(new Number<DataType>());
             value_node->GetOutputPort()->FlushData(new Number<DataType>());
@@ -32,12 +31,9 @@ namespace Mather {
         }
     };
 
-
-    template <typename DataType>
-    class AddOpNodeController : public BinaryOpNodeController<AddOpNode<DataType>, DataType>{
-    public:
-        AddOpNodeController(const QString& name):BinaryOpNodeController<AddOpNode<DataType>, DataType>(name){
-
-        }
-    };
+    using Int64AddOpNodeController = BinaryOpNodeController<AddOpNode<int64_t>, int64_t, BinaryOpNodeGraphics>;
+    using Int64SubstractOpNodeController = BinaryOpNodeController<SubstractOpNode<int64_t>, int64_t, BinaryOpNodeGraphics>;
+    using Int64MultiplyOpNodeController = BinaryOpNodeController<MultiplyOpNode<int64_t>, int64_t, BinaryOpNodeGraphics>;
+    using Int64DivideOpNodeController = BinaryOpNodeController<DivideOpNode<int64_t>, int64_t, BinaryOpNodeGraphics>;
+    using Int64ModulusOpNodeController = BinaryOpNodeController<ModulusOpNode<int64_t>, int64_t, BinaryOpNodeGraphics>;
 }

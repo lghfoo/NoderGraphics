@@ -4,36 +4,39 @@
 #include"../../../core/controller/application_controller.hpp"
 #include"../../../applications/filer/controller/application_controller.hpp"
 #include"../../../applications/mather/controller/application_controller.hpp"
-#include"node_controller_factory.hpp"
+#include"binaryzation_bernsen_node_controller.hpp"
+#include"binaryzation_kittler_node_controller.hpp"
+#include"binaryzation_otsu_node_controller.hpp"
+#include"grayen_node_controller.hpp"
+#include"image_histogram_node_controller.hpp"
+#include"image_node_controller.hpp"
+#include"ppm_fimage_node_controller.hpp"
 namespace Imager {
     class ApplicationController : public NoderGraphics::ApplicationController{
         using AddNodeHandler = MainView::AddNodeHandler;
-        using NodeType = NodeFactory::NodeType;
     public:
         ApplicationController(){
-            main_view->AddContextAction("Image", GetAddNodeHandler<NodeType::IMAGE_VALUE>());
-            main_view->AddContextAction("File/PPM", GetAddNodeHandler<NodeType::PPM_FILE_2_IMAGE>());
-            main_view->AddContextAction("Operation/Grayen", GetAddNodeHandler<NodeType::GRAYEN>());
-            main_view->AddContextAction("Operation/Binaryzation/OTSU", GetAddNodeHandler<NodeType::OTSU_BINARYZATION>());
-            main_view->AddContextAction("Operation/Binaryzation/Kittler", GetAddNodeHandler<NodeType::KITTLER_BINARYZATION>());
-            main_view->AddContextAction("Operation/Binaryzation/Bernsen", GetAddNodeHandler<NodeType::BERNSEN_BINARYZATION>());
-            main_view->AddContextAction("Histogram", GetAddNodeHandler<NodeType::IMAGE_HISTOGRAM>());
-            main_view->AddContextAction("Mather/Histogram", Mather::ApplicationController::
-                                        GetAddNodeHandler<Mather::NodeFactory::
-                                        NodeType::HISTOGRAM_VALUE>());
-            main_view->AddContextAction("Filer/File", Filer::ApplicationController::
-                                        GetAddNodeHandler<Filer::NodeControllerFactory::
-                                        NodeType::FILE_SELECT>());
+            main_view->AddContextAction("Image", GetAddNodeHandler<ImageNodeController>());
+            main_view->AddContextAction("File/PPM", GetAddNodeHandler<PPMFImageNodeController>());
+            main_view->AddContextAction("Operation/Grayen", GetAddNodeHandler<GrayenNodeController>());
+            main_view->AddContextAction("Operation/Binaryzation/OTSU", AddOTSUNodeHandler());
+            main_view->AddContextAction("Operation/Binaryzation/Kittler", AddKittlerNodeHandler());
+            main_view->AddContextAction("Operation/Binaryzation/Bernsen", GetAddNodeHandler<BernsenNodeController>());
+            main_view->AddContextAction("Histogram", GetAddNodeHandler<ImageHistogramNodeController>());
+            main_view->AddContextAction("Mather/Histogram", GetAddNodeHandler<Mather::HistogramValueNodeController>());
+            main_view->AddContextAction("Filer/File", GetAddNodeHandler<Filer::SelectFileNodeController>());
         }
 
-        template<NodeType NODE_TYPE>
-        static AddNodeHandler& GetAddNodeHandler(){
-            static AddNodeHandler handler = [](MainView* view){
-                NoderGraphics::NodeController* controller = NodeControllerFactory::CreateNodeController(NODE_TYPE);
-                auto scene = static_cast<MainScene*>(view->scene());
-                scene->AddItemAtCursor(controller->GetNodeGraphics());
-            };
-            return handler;
+        static AddNodeHandler AddOTSUNodeHandler(){
+            static QString name = "OTSU Node";
+            static auto Ret = GetAddNodeHandler<OTSUNodeController>(&name);
+            return Ret;
+        }
+
+        static AddNodeHandler AddKittlerNodeHandler(){
+            static QString name = "Kittler Node";
+            static auto Ret = GetAddNodeHandler<KittlerNodeController>(&name);
+            return Ret;
         }
     };
 }

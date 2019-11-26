@@ -8,7 +8,7 @@ namespace Filer {
     class SelectFileNodeGraphics : public NodeGraphics{
     public:
         enum {INPUT_PORT, FILE_BOX, OUTPUT_PORT, UI_COUNT};
-        SelectFileNodeGraphics(){
+        SelectFileNodeGraphics(PObject arg = nullptr){
             this->setLayout(NodeLayoutBuilder(&(this->uis), UI_COUNT)
                             .Add(new LabelProxy("Filename"), 0, 0, 1, 3).NextRow()
                             .Add(INPUT_PORT, new PortProxy).Add(FILE_BOX, new FileBoxProxy).Add(OUTPUT_PORT, new PortProxy)

@@ -8,15 +8,15 @@
 namespace Imager {
     using namespace NoderGraphics;
     using namespace Noder;
-    class ImageNodeController : public NodeController{
+    class ImageNodeController : public NodeController<ImageNode, ImageNodeGraphics>{
         PortController* input_port_controller = nullptr;
         PortController* output_port_controller = nullptr;
     public:
-        ImageNodeController(){
-            this->node = new ImageNode;
-            this->node_graphics = new ImageNodeGraphics;
-            auto value_graphics = static_cast<ImageNodeGraphics*>(this->node_graphics);
-            auto value_node = static_cast<ImageNode*>(this->node);
+        ImageNodeController(PObject graphics_arg = nullptr,
+                            PObject node_arg = nullptr)
+            :NodeController<ImageNode, ImageNodeGraphics> (graphics_arg, node_arg){
+            auto value_graphics = this->node_graphics;
+            auto value_node = this->node;
             value_node->GetInputPort()->FlushData(new ImageData);
             value_node->GetOutputPort()->FlushData(new ImageData);
             // todo: use shared_ptr?

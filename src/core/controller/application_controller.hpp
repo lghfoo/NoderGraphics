@@ -9,7 +9,8 @@
 namespace NoderGraphics {
     class ApplicationController{
         using AddNodeHandler = MainView::AddNodeHandler;
-        using NodeController = NoderGraphics::NodeController;
+        template<typename NodeType, typename GraphicsType>
+        using NodeController = NoderGraphics::NodeController<NodeType, GraphicsType>;
     public:
         ApplicationController(){}
         static ApplicationController* GetInstance(){
@@ -27,6 +28,17 @@ namespace NoderGraphics {
 
         MainView* GetMainView(){
             return main_view;
+        }
+
+        template<typename ControllerType>
+        static AddNodeHandler& GetAddNodeHandler(PObject graphics_arg = nullptr,
+                                                 PObject node_arg = nullptr){
+            static AddNodeHandler handler = [=](MainView* view){
+                ControllerType* controller = new ControllerType(graphics_arg, node_arg);
+                auto scene = static_cast<MainScene*>(view->scene());
+                scene->AddItemAtCursor(controller->GetNodeGraphics());
+            };
+            return handler;
         }
     protected:
         MainView* main_view = new MainView();

@@ -7,15 +7,15 @@
 namespace Texter {
     using namespace NoderGraphics;
     using namespace Noder;
-    class ToStringNodeController : public NodeController{
+    class ToStringNodeController : public NodeController<ToStringNode, ToStringNodeGraphics>{
         PortController* input_port_controller = nullptr;
         PortController* output_port_controller = nullptr;
     public:
-        ToStringNodeController(){
-            this->node = new ToStringNode;
-            this->node_graphics = new ToStringNodeGraphics;
-            auto value_graphics = static_cast<ToStringNodeGraphics*>(this->node_graphics);
-            auto value_node = static_cast<ToStringNode*>(this->node);
+        ToStringNodeController(PObject graphics_arg = nullptr,
+                               PObject node_arg = nullptr)
+            :NodeController<ToStringNode, ToStringNodeGraphics> (graphics_arg, node_arg){
+            auto value_graphics = this->node_graphics;
+            auto value_node = this->node;
             // todo: use shared_ptr?
             input_port_controller = new PortController(value_node->GetInputPort(ToStringNode::DATA_INPUT).get(), value_graphics->GetUI<PortProxy>(ToStringNodeGraphics::INPUT_PORT));
             output_port_controller = new PortController(value_node->GetOutputPort(ToStringNode::STRING_OUTPUT).get(), value_graphics->GetUI<PortProxy>(ToStringNodeGraphics::OUTPUT_PORT));

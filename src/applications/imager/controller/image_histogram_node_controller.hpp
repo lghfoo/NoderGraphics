@@ -8,15 +8,15 @@
 namespace Imager {
     using namespace NoderGraphics;
     using namespace Noder;
-    class ImageHistogramNodeController : public NodeController{
+    class ImageHistogramNodeController : public NodeController<ImageHistogramNode, ImageHistogramNodeGraphics>{
         PortController* input_port_controller = nullptr;
         PortController* output_port_controller = nullptr;
     public:
-        ImageHistogramNodeController(){
-            this->node = new ImageHistogramNode;
-            this->node_graphics = new ImageHistogramNodeGraphics;
-            auto value_graphics = static_cast<ImageHistogramNodeGraphics*>(this->node_graphics);
-            auto value_node = static_cast<ImageHistogramNode*>(this->node);
+        ImageHistogramNodeController(PObject graphics_arg = nullptr,
+                                     PObject node_arg = nullptr)
+            :NodeController<ImageHistogramNode, ImageHistogramNodeGraphics>(graphics_arg, node_arg){
+            auto value_graphics = this->node_graphics;
+            auto value_node = this->node;
             value_node->GetInputPort()->FlushData(new ImageData);
             value_node->GetOutputPort()->FlushData(new Mather::VectorData<int>());
             // todo: use shared_ptr?

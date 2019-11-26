@@ -8,38 +8,20 @@
 namespace Imager {
     using namespace NoderGraphics;
     using namespace Noder;
-    class PPMFImageNodeController : public NodeController{
+    class PPMFImageNodeController : public NodeController<PPMFImageNode, PPMFImageNodeGraphics>{
         PortController* input_port_controller = nullptr;
         PortController* output_port_controller = nullptr;
     public:
-        PPMFImageNodeController(){
-            this->node = new PPMFImageNode;
-            this->node_graphics = new PPMFImageNodeGraphics;
-            auto value_graphics = static_cast<PPMFImageNodeGraphics*>(this->node_graphics);
-            auto value_node = static_cast<PPMFImageNode*>(this->node);
+        PPMFImageNodeController(PObject graphics_arg = nullptr,
+                                PObject node_arg = nullptr)
+            :NodeController<PPMFImageNode, PPMFImageNodeGraphics> (graphics_arg, node_arg){
+            auto value_graphics = this->node_graphics;
+            auto value_node = this->node;
             value_node->GetInputPort()->FlushData(new Text());
             value_node->GetOutputPort()->FlushData(new ImageData());
             // todo: use shared_ptr?
             input_port_controller = new PortController(value_node->GetInputPort().get(), value_graphics->GetUI<PortProxy>(PPMFImageNodeGraphics::INPUT_PORT));
             output_port_controller = new PortController(value_node->GetOutputPort().get(), value_graphics->GetUI<PortProxy>(PPMFImageNodeGraphics::OUTPUT_PORT));
-//            auto text_graphics = value_graphics->GetUI<TextEditProxy>(TextValueNodeGraphics::TEXT_EDIT);
-//            QObject::connect(text_graphics->GetWidget<QTextEdit>(), &QTextEdit::textChanged, [=](){
-//                if(this->IsBusy())return;
-//                this->SetBusy(true);
-//                auto text = text_graphics->GetWidget<QTextEdit>()->toPlainText();
-//                auto str = text.toStdString();
-//                value_node->GetInputPort()->UpdateData(&str);
-//                this->SetBusy(false);
-//            });
-
-//            value_node->GetInputPort()->AddUpdateDataListener([=](PObject data){
-//                if(this->IsBusy())return;
-//                this->SetBusy(true);
-//                auto text_edit = text_graphics->GetWidget<QTextEdit>();
-//                auto str = *static_cast<string*>(data);
-//                text_edit->setText(QString(str.c_str()));
-//                this->SetBusy(false);
-//            });
         }
     };
 }

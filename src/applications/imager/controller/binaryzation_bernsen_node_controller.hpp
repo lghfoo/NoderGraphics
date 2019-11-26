@@ -9,16 +9,16 @@
 namespace Imager {
     using namespace NoderGraphics;
     using namespace Noder;
-    class BernsenNodeController : public NodeController{
+    class BernsenNodeController : public NodeController<BernsenNode, BernsenNodeGraphics>{
         PortController* input_port_1_controller = nullptr;
         PortController* input_port_2_controller = nullptr;
         PortController* output_port_controller = nullptr;
     public:
-        BernsenNodeController(){
-            this->node = new BernsenNode;
-            this->node_graphics = new BernsenNodeGraphics;
-            auto value_graphics = static_cast<BernsenNodeGraphics*>(this->node_graphics);
-            auto value_node = static_cast<BernsenNode*>(this->node);
+        BernsenNodeController(PObject graphics_arg = nullptr,
+                              PObject node_arg = nullptr)
+            :NodeController<BernsenNode, BernsenNodeGraphics>(graphics_arg, node_arg){
+            auto value_graphics = this->node_graphics;
+            auto value_node = this->node;
             value_node->GetInputPort1()->FlushData(new ImageData);
             value_node->GetInputPort2()->FlushData(new Mather::Number<long long>());
             value_node->GetOutputPort()->FlushData(new ImageData);

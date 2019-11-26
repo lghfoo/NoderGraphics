@@ -8,6 +8,7 @@
 #include <QGraphicsGridLayout>
 #include <qsizepolicy.h>
 namespace NoderGraphics {
+    using PObject = void*;
     class WidgetProxy : public QGraphicsProxyWidget {
     public:
         virtual void NotifyPosChanged(){}
