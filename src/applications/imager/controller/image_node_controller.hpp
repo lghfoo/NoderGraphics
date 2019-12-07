@@ -20,8 +20,8 @@ namespace Imager {
             value_node->GetInputPort()->FlushData(Pointer<Data>(new ImageData));
             value_node->GetOutputPort()->FlushData(Pointer<Data>(new ImageData));
             // todo: use shared_ptr?
-            input_port_controller = new PortController(value_node->GetInputPort().get(), value_graphics->GetUI<PortProxy>(ImageNodeGraphics::INPUT_PORT));
-            output_port_controller = new PortController(value_node->GetOutputPort().get(), value_graphics->GetUI<PortProxy>(ImageNodeGraphics::OUTPUT_PORT));
+            input_port_controller = new PortController(value_node->GetInputPort(), value_graphics->GetUI<PortProxy>(ImageNodeGraphics::INPUT_PORT));
+            output_port_controller = new PortController(value_node->GetOutputPort(), value_graphics->GetUI<PortProxy>(ImageNodeGraphics::OUTPUT_PORT));
             value_node->GetInputPort()->AddUpdateDataListener([=](PObject data){
                if(this->IsBusy())return;
                this->SetBusy(true);

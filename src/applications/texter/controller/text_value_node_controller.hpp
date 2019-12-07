@@ -19,10 +19,10 @@ namespace Texter {
             value_node->GetInputPort()->FlushData(Pointer<Data>(new Text()));
             value_node->GetOutputPort()->FlushData(Pointer<Data>(new Text()));
             // todo: use shared_ptr?
-            input_port_controller = new PortController(value_node->GetInputPort().get(), value_graphics->GetUI<PortProxy>(TextValueNodeGraphics::INPUT_PORT));
-            output_port_controller = new PortController(value_node->GetOutputPort().get(), value_graphics->GetUI<PortProxy>(TextValueNodeGraphics::OUTPUT_PORT));
+            input_port_controller = new PortController(value_node->GetInputPort(), value_graphics->GetUI<PortProxy>(TextValueNodeGraphics::INPUT_PORT));
+            output_port_controller = new PortController(value_node->GetOutputPort(), value_graphics->GetUI<PortProxy>(TextValueNodeGraphics::OUTPUT_PORT));
             auto text_graphics = value_graphics->GetUI<TextEditProxy>(TextValueNodeGraphics::TEXT_EDIT);
-            BindingHelper().Bind(text_graphics, value_node->GetInputPort().get());
+            BindingHelper().Bind(text_graphics, value_node->GetInputPort());
         }
     };
 }

@@ -21,8 +21,8 @@ namespace Imager {
             value_node->GetInputPort()->FlushData(Pointer<Data>(new ImageData));
             value_node->GetOutputPort()->FlushData(Pointer<Data>(new ImageData));
             // todo: use shared_ptr?
-            input_port_controller = new PortController(value_node->GetInputPort().get(), value_graphics->GetUI<PortProxy>(Label_1_1::INPUT_PORT));
-            output_port_controller = new PortController(value_node->GetOutputPort().get(), value_graphics->GetUI<PortProxy>(Label_1_1::OUTPUT_PORT));
+            input_port_controller = new PortController(value_node->GetInputPort(), value_graphics->GetUI<PortProxy>(Label_1_1::INPUT_PORT));
+            output_port_controller = new PortController(value_node->GetOutputPort(), value_graphics->GetUI<PortProxy>(Label_1_1::OUTPUT_PORT));
         }
     };
 }

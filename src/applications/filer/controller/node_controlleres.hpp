@@ -17,11 +17,11 @@ namespace Filer {
             auto filelen_node = static_cast<FilelenNode*>(this->node);
             auto filelen_graphics = static_cast<FilelenNodeGraphics*>(this->node_graphics);
             // todo: use shared_ptr?
-            input_port_controller = new PortController(filelen_node->GetInputPort(FilelenNode::FILENAME_INPUT).get(), filelen_graphics->GetUI<PortProxy>(FilelenNodeGraphics::INPUT_PORT));
-            output_port_controller = new PortController(filelen_node->GetOutputPort(FilelenNode::FILELEN_OUTPUT).get(), filelen_graphics->GetUI<PortProxy>(FilelenNodeGraphics::OUTPUT_PORT));
+            input_port_controller = new PortController(filelen_node->GetInputPort(FilelenNode::FILENAME_INPUT), filelen_graphics->GetUI<PortProxy>(FilelenNodeGraphics::INPUT_PORT));
+            output_port_controller = new PortController(filelen_node->GetOutputPort(FilelenNode::FILELEN_OUTPUT), filelen_graphics->GetUI<PortProxy>(FilelenNodeGraphics::OUTPUT_PORT));
             auto text_graphics = filelen_graphics->GetUI<FileBoxProxy>(FilelenNodeGraphics::FILE_BOX);
             BindingHelper().Bind(text_graphics,
-                                 filelen_node->GetInputPort(FilelenNode::FILENAME_INPUT).get());
+                                 filelen_node->GetInputPort(FilelenNode::FILENAME_INPUT));
         }
     };
 
@@ -37,32 +37,32 @@ namespace Filer {
             {
                 auto file_name_port_proxy = node_graphics->GetUI<PortProxy>(PBFFG::FILE_INPUT_PORT);
                 auto file_name_box_proxy = node_graphics->GetUI<FileBoxProxy>(PBFFG::FILE_BOX);
-                auto file_name_port = node->GetInputPort(PBFFN::FILENAME_INPUT).get();
+                auto file_name_port = node->GetInputPort(PBFFN::FILENAME_INPUT);
                 auto file_name_port_controller = new PortController(file_name_port, file_name_port_proxy);
                 binding_helper.Bind(file_name_box_proxy, file_name_port);
             }
             {
                 auto begin_addr_port_proxy = node_graphics->GetUI<PortProxy>(PBFFG::BEGIN_ADDRESS_INPUT_PORT);
-                auto begin_addr_port = node->GetInputPort(PBFFN::BEGIN_ADDRESS_INPUT).get();
+                auto begin_addr_port = node->GetInputPort(PBFFN::BEGIN_ADDRESS_INPUT);
                 auto begin_addr_box_proxy = node_graphics->GetUI<Int64SpinBoxProxy>(PBFFG::BEGIN_ADDRESS_BOX);
                 auto begin_addr_port_controller = new PortController(begin_addr_port, begin_addr_port_proxy);
                 binding_helper.Bind(begin_addr_box_proxy, begin_addr_port);
             }
             {
                 auto size_port_proxy = node_graphics->GetUI<PortProxy>(PBFFG::BUFFER_SIZE_INPUT_PORT);
-                auto size_port = node->GetInputPort(PBFFN::BUFFER_SIZE_INPUT).get();
+                auto size_port = node->GetInputPort(PBFFN::BUFFER_SIZE_INPUT);
                 auto size_box_proxy = node_graphics->GetUI<Int64SpinBoxProxy>(PBFFG::BUFFER_SIZE_BOX);
                 auto size_port_controller = new PortController(size_port, size_port_proxy);
                 binding_helper.Bind(size_box_proxy, size_port);
             }
             {
                 auto end_addr_port_proxy = node_graphics->GetUI<PortProxy>(PBFFG::END_ADDRESS_OUTPUT_PORT);
-                auto end_addr_port = node->GetOutputPort(PBFFN::END_ADDRESS_OUTPUT).get();
+                auto end_addr_port = node->GetOutputPort(PBFFN::END_ADDRESS_OUTPUT);
                 auto end_addr_port_controller = new PortController(end_addr_port, end_addr_port_proxy);
             }
             {
                 auto buffer_out_port_proxy = node_graphics->GetUI<PortProxy>(PBFFG::BUFFER_OUTPUT_PORT);
-                auto buffer_out_port = node->GetOutputPort(PBFFN::BUFFER_OUTPUT).get();
+                auto buffer_out_port = node->GetOutputPort(PBFFN::BUFFER_OUTPUT);
                 auto buffer_out_port_controller = new PortController(buffer_out_port, buffer_out_port_proxy);
             }
 #undef PBFFN
@@ -85,29 +85,29 @@ namespace Filer {
             BindingHelper binding_helper;
             {
                 auto buffer_port_proxy = pick_graphics->GetUI<PortProxy>(PNFBG::BUFFER_INPUT_PORT);
-                auto buffer_port = node->GetInputPort(PNFBN::BUFFER_INPUT).get();
+                auto buffer_port = node->GetInputPort(PNFBN::BUFFER_INPUT);
                 auto buffer_port_controller = new PortController(buffer_port, buffer_port_proxy);
             }
             {
                 auto begin_addr_port_proxy = node_graphics->GetUI<PortProxy>(PNFBG::BEGIN_ADDRESS_PORT);
-                auto begin_addr_port = node->GetInputPort(PNFBN::BEGIN_ADDRESS_INPUT).get();
+                auto begin_addr_port = node->GetInputPort(PNFBN::BEGIN_ADDRESS_INPUT);
                 auto begin_addr_box_proxy = node_graphics->GetUI<Int64SpinBoxProxy>(PNFBG::BEGIN_ADDRESS_BOX);
                 auto begin_addr_port_controller = new PortController(begin_addr_port, begin_addr_port_proxy);
                 binding_helper.Bind(begin_addr_box_proxy, begin_addr_port);
             }
             {
                 auto end_addr_proxy = node_graphics->GetUI<PortProxy>(PNFBG::END_ADDRESS_OUTPUT_PORT);
-                auto end_addr_port = node->GetOutputPort(PNFBN::END_ADDRESS_OUTPUT).get();
+                auto end_addr_port = node->GetOutputPort(PNFBN::END_ADDRESS_OUTPUT);
                 auto end_addr_port_controller = new PortController(end_addr_port, end_addr_proxy);
             }
             {
                 auto number_out_proxy = node_graphics->GetUI<PortProxy>(PNFBG::NUMBER_OUTPUT_PORT);
-                auto number_out_port = node->GetOutputPort(PNFBN::NUMBER_OUTPUT).get();
+                auto number_out_port = node->GetOutputPort(PNFBN::NUMBER_OUTPUT);
                 auto number_out_port_controller = new PortController(number_out_port, number_out_proxy);
             }
             {
                 auto number_type_proxy = pick_graphics->GetUI<ComboBoxProxy>(PNFBG::NUMBER_TYPE_BOX);
-                auto number_type_input = node->GetInputPort(PNFBN::NUMBER_TYPE_INPUT).get();
+                auto number_type_input = node->GetInputPort(PNFBN::NUMBER_TYPE_INPUT);
                 auto number_type_box = number_type_proxy->GetWidget<QComboBox>();
                 QMap<Mather::NumberType, const char*>& number_type_map = GetNumberTypeMap();
                 QMapIterator<Mather::NumberType, const char*> i(number_type_map);
@@ -123,7 +123,7 @@ namespace Filer {
             }
             {
                 auto format_type_proxy = pick_graphics->GetUI<ComboBoxProxy>(PNFBG::FORMAT_TYPE_BOX);
-                auto format_type_input = node->GetInputPort(PNFBN::FORMAT_INPUT).get();
+                auto format_type_input = node->GetInputPort(PNFBN::FORMAT_INPUT);
                 auto format_type_box = format_type_proxy->GetWidget<QComboBox>();
                 QMap<BufferInputStream::Mode, const char*>& format_type_map = GetFormatTypeMap();
                 QMapIterator<BufferInputStream::Mode, const char*> i(format_type_map);
@@ -139,7 +139,7 @@ namespace Filer {
             }
             {
                 auto endian_type_proxy = pick_graphics->GetUI<ComboBoxProxy>(PNFBG::ENDIAN_TYPE_BOX);
-                auto endian_type_input = node->GetInputPort(PNFBN::ENDIAN_INPUT).get();
+                auto endian_type_input = node->GetInputPort(PNFBN::ENDIAN_INPUT);
                 auto endian_type_box = endian_type_proxy->GetWidget<QComboBox>();
                 QMap<BufferInputStream::Endian, const char*>& endian_type_map = GetEndianTypeMap();
                 QMapIterator<BufferInputStream::Endian, const char*> i(endian_type_map);

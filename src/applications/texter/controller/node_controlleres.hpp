@@ -17,8 +17,8 @@ namespace Texter {
             auto value_graphics = this->node_graphics;
             auto value_node = this->node;
             // todo: use shared_ptr?
-            input_port_controller = new PortController(value_node->GetInputPort(ToStringNode::DATA_INPUT).get(), value_graphics->GetUI<PortProxy>(ToStringNodeGraphics::INPUT_PORT));
-            output_port_controller = new PortController(value_node->GetOutputPort(ToStringNode::STRING_OUTPUT).get(), value_graphics->GetUI<PortProxy>(ToStringNodeGraphics::OUTPUT_PORT));
+            input_port_controller = new PortController(value_node->GetInputPort(ToStringNode::DATA_INPUT), value_graphics->GetUI<PortProxy>(ToStringNodeGraphics::INPUT_PORT));
+            output_port_controller = new PortController(value_node->GetOutputPort(ToStringNode::STRING_OUTPUT), value_graphics->GetUI<PortProxy>(ToStringNodeGraphics::OUTPUT_PORT));
             auto text_graphics = value_graphics->GetUI<TextEditProxy>(ToStringNodeGraphics::TEXT_EDIT);
             value_node->GetOutputPort(ToStringNode::STRING_OUTPUT)->AddUpdateDataListener([=](PObject data){
                 if(this->IsBusy())return;

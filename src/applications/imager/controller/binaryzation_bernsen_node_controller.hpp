@@ -23,9 +23,9 @@ namespace Imager {
             value_node->GetInputPort2()->FlushData(Pointer<Data>(new Mather::Number<long long>()));
             value_node->GetOutputPort()->FlushData(Pointer<Data>(new ImageData));
 //            // todo: use shared_ptr?
-            input_port_1_controller = new PortController(value_node->GetInputPort1().get(), value_graphics->GetUI<PortProxy>(BernsenNodeGraphics::INPUT_IMAGE_PORT));
-            input_port_2_controller = new PortController(value_node->GetInputPort2().get(), value_graphics->GetUI<PortProxy>(BernsenNodeGraphics::WINDOW_SIZE_PORT));
-            output_port_controller = new PortController(value_node->GetOutputPort().get(), value_graphics->GetUI<PortProxy>(BernsenNodeGraphics::OUTPUT_PORT));
+            input_port_1_controller = new PortController(value_node->GetInputPort1(), value_graphics->GetUI<PortProxy>(BernsenNodeGraphics::INPUT_IMAGE_PORT));
+            input_port_2_controller = new PortController(value_node->GetInputPort2(), value_graphics->GetUI<PortProxy>(BernsenNodeGraphics::WINDOW_SIZE_PORT));
+            output_port_controller = new PortController(value_node->GetOutputPort(), value_graphics->GetUI<PortProxy>(BernsenNodeGraphics::OUTPUT_PORT));
             auto wind_size_proxy = value_graphics->GetUI<Int64SpinBoxProxy>(BernsenNodeGraphics::WINDOW_SIZE_BOX);
             auto wind_size_box = wind_size_proxy->GetWidget<Int64SpinBox>();
             QObject::connect(wind_size_box, &Int64SpinBox::ValueChanged, [=](long long value){

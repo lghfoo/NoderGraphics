@@ -25,9 +25,9 @@ namespace Mather {
             value_node->GetInputPort2()->FlushData(Pointer<Data>(new Number<DataType>()));
             value_node->GetOutputPort()->FlushData(Pointer<Data>(new Number<DataType>()));
             // todo: use shared_ptr?
-            lhs_input_port_controller = new PortController(value_node->GetInputPort1().get(), value_graphics->GetLhsPortGraphics());
-            rhs_input_port_controller = new PortController(value_node->GetInputPort2().get(), value_graphics->GetRhsPortGraphics());
-            output_port_controller = new PortController(value_node->GetOutputPort().get(), value_graphics->GetOutputPortGraphics());
+            lhs_input_port_controller = new PortController(value_node->GetInputPort1(), value_graphics->GetLhsPortGraphics());
+            rhs_input_port_controller = new PortController(value_node->GetInputPort2(), value_graphics->GetRhsPortGraphics());
+            output_port_controller = new PortController(value_node->GetOutputPort(), value_graphics->GetOutputPortGraphics());
         }
     };
 

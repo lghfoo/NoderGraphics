@@ -21,13 +21,13 @@ namespace Mather {
             value_node->GetInputPort()->FlushData(Pointer<Data>(new Number<long long>()));
             value_node->GetOutputPort()->FlushData(Pointer<Data>(new Number<long long>()));
             // todo: use shared_ptr?
-            input_port_controller = new PortController(value_node->GetInputPort().get(),
+            input_port_controller = new PortController(value_node->GetInputPort(),
                                                        value_graphics->GetUI<PortProxy>(Int64ValueNodeGraphics::INPUT_PORT));
-            output_port_controller = new PortController(value_node->GetOutputPort().get(),
+            output_port_controller = new PortController(value_node->GetOutputPort(),
                                                         value_graphics->GetUI<PortProxy>(Int64ValueNodeGraphics::OUTPUT_PORT));
             BindingHelper().Bind(this->node_graphics
                                  ->GetUI<Int64SpinBoxProxy>(Int64ValueNodeGraphics::VALUE_SPIN_BOX),
-                                 value_node->GetInputPort().get());
+                                 value_node->GetInputPort());
 
         }
     };
@@ -47,13 +47,13 @@ namespace Mather {
             value_node->GetInputPort()->FlushData(Pointer<Data>(new Number<int>()));
             value_node->GetOutputPort()->FlushData(Pointer<Data>(new Number<int>()));
             // todo: use shared_ptr?
-            input_port_controller = new PortController(value_node->GetInputPort().get(),
+            input_port_controller = new PortController(value_node->GetInputPort(),
                                                        value_graphics->GetUI<PortProxy>(Int32ValueNodeGraphics::INPUT_PORT));
-            output_port_controller = new PortController(value_node->GetOutputPort().get(),
+            output_port_controller = new PortController(value_node->GetOutputPort(),
                                                         value_graphics->GetUI<PortProxy>(Int32ValueNodeGraphics::OUTPUT_PORT));
             BindingHelper().Bind(this->node_graphics
                                  ->GetUI<Int32SpinBoxProxy>(Int32ValueNodeGraphics::VALUE_SPIN_BOX),
-                                 value_node->GetInputPort().get());
+                                 value_node->GetInputPort());
 
         }
     };
