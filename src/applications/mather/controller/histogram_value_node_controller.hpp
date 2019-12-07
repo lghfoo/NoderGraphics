@@ -19,8 +19,8 @@ namespace Mather {
             :NoderGraphics::NodeController<HistogramNode, HistogramValueNodeGraphics>(graphics_arg, node_arg){
             auto value_graphics = this->node_graphics;
             auto value_node = this->node;
-            value_node->GetInputPort()->FlushData(new VectorData<int>());
-            value_node->GetOutputPort()->FlushData(new VectorData<int>());
+            value_node->GetInputPort()->FlushData(Pointer<Data>(new VectorData<int>()));
+            value_node->GetOutputPort()->FlushData(Pointer<Data>(new VectorData<int>()));
             // todo: use shared_ptr?
             input_port_controller = new PortController(value_node->GetInputPort().get(), value_graphics->GetUI<PortProxy>(HistogramValueNodeGraphics::INPUT_PORT));
             output_port_controller = new PortController(value_node->GetOutputPort().get(), value_graphics->GetUI<PortProxy>(HistogramValueNodeGraphics::OUTPUT_PORT));

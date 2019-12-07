@@ -18,8 +18,8 @@ namespace Mather {
             :NoderGraphics::NodeController<ValueNode, Int64ValueNodeGraphics> (graphics_arg, node_arg){
             auto value_graphics = this->node_graphics;
             auto value_node = this->node;
-            value_node->GetInputPort()->FlushData(new Number<long long>());
-            value_node->GetOutputPort()->FlushData(new Number<long long>());
+            value_node->GetInputPort()->FlushData(Pointer<Data>(new Number<long long>()));
+            value_node->GetOutputPort()->FlushData(Pointer<Data>(new Number<long long>()));
             // todo: use shared_ptr?
             input_port_controller = new PortController(value_node->GetInputPort().get(),
                                                        value_graphics->GetUI<PortProxy>(Int64ValueNodeGraphics::INPUT_PORT));
@@ -44,8 +44,8 @@ namespace Mather {
             :NoderGraphics::NodeController<ValueNode, Int32ValueNodeGraphics> (graphics_arg, node_arg){
             auto value_graphics = this->node_graphics;
             auto value_node = this->node;
-            value_node->GetInputPort()->FlushData(new Number<int>());
-            value_node->GetOutputPort()->FlushData(new Number<int>());
+            value_node->GetInputPort()->FlushData(Pointer<Data>(new Number<int>()));
+            value_node->GetOutputPort()->FlushData(Pointer<Data>(new Number<int>()));
             // todo: use shared_ptr?
             input_port_controller = new PortController(value_node->GetInputPort().get(),
                                                        value_graphics->GetUI<PortProxy>(Int32ValueNodeGraphics::INPUT_PORT));

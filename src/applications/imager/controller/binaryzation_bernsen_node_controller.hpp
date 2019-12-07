@@ -19,9 +19,9 @@ namespace Imager {
             :NodeController<BernsenNode, BernsenNodeGraphics>(graphics_arg, node_arg){
             auto value_graphics = this->node_graphics;
             auto value_node = this->node;
-            value_node->GetInputPort1()->FlushData(new ImageData);
-            value_node->GetInputPort2()->FlushData(new Mather::Number<long long>());
-            value_node->GetOutputPort()->FlushData(new ImageData);
+            value_node->GetInputPort1()->FlushData(Pointer<Data>(new ImageData));
+            value_node->GetInputPort2()->FlushData(Pointer<Data>(new Mather::Number<long long>()));
+            value_node->GetOutputPort()->FlushData(Pointer<Data>(new ImageData));
 //            // todo: use shared_ptr?
             input_port_1_controller = new PortController(value_node->GetInputPort1().get(), value_graphics->GetUI<PortProxy>(BernsenNodeGraphics::INPUT_IMAGE_PORT));
             input_port_2_controller = new PortController(value_node->GetInputPort2().get(), value_graphics->GetUI<PortProxy>(BernsenNodeGraphics::WINDOW_SIZE_PORT));

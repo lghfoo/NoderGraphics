@@ -18,8 +18,8 @@ namespace Imager {
             :NodeController<GrayenNode, GrayenNodeGraphics> (graphics_arg, node_arg){
             auto value_graphics = this->node_graphics;
             auto value_node = this->node;
-            value_node->GetInputPort()->FlushData(new ImageData);
-            value_node->GetOutputPort()->FlushData(new ImageData);
+            value_node->GetInputPort()->FlushData(Pointer<Data>(new ImageData));
+            value_node->GetOutputPort()->FlushData(Pointer<Data>(new ImageData));
             // todo: use shared_ptr?
             input_port_controller = new PortController(value_node->GetInputPort().get(), value_graphics->GetUI<PortProxy>(GrayenNodeGraphics::INPUT_PORT));
             output_port_controller = new PortController(value_node->GetOutputPort().get(), value_graphics->GetUI<PortProxy>(GrayenNodeGraphics::OUTPUT_PORT));

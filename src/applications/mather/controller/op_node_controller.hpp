@@ -21,9 +21,9 @@ namespace Mather {
             :NoderGraphics::NodeController<OpNodeType, GraphicsType> (graphics_arg, node_arg){
             auto value_graphics = this->node_graphics;
             auto value_node = this->node;
-            value_node->GetInputPort1()->FlushData(new Number<DataType>());
-            value_node->GetInputPort2()->FlushData(new Number<DataType>());
-            value_node->GetOutputPort()->FlushData(new Number<DataType>());
+            value_node->GetInputPort1()->FlushData(Pointer<Data>(new Number<DataType>()));
+            value_node->GetInputPort2()->FlushData(Pointer<Data>(new Number<DataType>()));
+            value_node->GetOutputPort()->FlushData(Pointer<Data>(new Number<DataType>()));
             // todo: use shared_ptr?
             lhs_input_port_controller = new PortController(value_node->GetInputPort1().get(), value_graphics->GetLhsPortGraphics());
             rhs_input_port_controller = new PortController(value_node->GetInputPort2().get(), value_graphics->GetRhsPortGraphics());

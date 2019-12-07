@@ -14,8 +14,8 @@ namespace Filer {
             :NodeController<FileNode, SelectFileNodeGraphics> (graphics_arg, node_arg){
             auto value_graphics = this->node_graphics;
             auto value_node = this->node;
-            value_node->GetInputPort()->FlushData(new Text);
-            value_node->GetOutputPort()->FlushData(new Text);
+            value_node->GetInputPort()->FlushData(Pointer<Data>(new Text));
+            value_node->GetOutputPort()->FlushData(Pointer<Data>(new Text));
             // todo: use shared_ptr?
             input_port_controller = new PortController(value_node->GetInputPort().get(), value_graphics->GetUI<PortProxy>(SelectFileNodeGraphics::INPUT_PORT));
             output_port_controller = new PortController(value_node->GetOutputPort().get(), value_graphics->GetUI<PortProxy>(SelectFileNodeGraphics::OUTPUT_PORT));

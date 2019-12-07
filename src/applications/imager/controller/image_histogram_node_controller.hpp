@@ -17,8 +17,8 @@ namespace Imager {
             :NodeController<ImageHistogramNode, ImageHistogramNodeGraphics>(graphics_arg, node_arg){
             auto value_graphics = this->node_graphics;
             auto value_node = this->node;
-            value_node->GetInputPort()->FlushData(new ImageData);
-            value_node->GetOutputPort()->FlushData(new Mather::VectorData<int>());
+            value_node->GetInputPort()->FlushData(Pointer<Data>(new ImageData));
+            value_node->GetOutputPort()->FlushData(Pointer<Data>(new Mather::VectorData<int>()));
             // todo: use shared_ptr?
             input_port_controller = new PortController(value_node->GetInputPort().get(), value_graphics->GetUI<PortProxy>(ImageHistogramNodeGraphics::INPUT_PORT));
             output_port_controller = new PortController(value_node->GetOutputPort().get(), value_graphics->GetUI<PortProxy>(ImageHistogramNodeGraphics::OUTPUT_PORT));
