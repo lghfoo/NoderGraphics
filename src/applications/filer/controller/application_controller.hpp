@@ -19,6 +19,7 @@ namespace Filer {
             main_view->AddContextAction("Filer/Pick Buffer From File", GetAddNodeHandler<PickBufferFromFileNodeController>());
             main_view->AddContextAction("Filer/Pick Number From Buffer", GetAddNodeHandler<PickNumberFromBufferNodeController>());
             main_view->AddContextAction("Mather/Value/Int64", GetAddNodeHandler<Mather::Int64ValueController>());
+            main_view->AddContextAction("Mather/Value/Int32", GetAddNodeHandler<Mather::Int32ValueController>());
             main_view->AddContextAction("Texter/Text", GetAddNodeHandler<Texter::TextValueNodeController>());
             main_view->AddContextAction("Texter/To Text", GetAddNodeHandler<Texter::ToStringNodeController>());
         }

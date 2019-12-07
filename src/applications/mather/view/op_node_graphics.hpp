@@ -5,7 +5,7 @@
 #include<QGraphicsGridLayout>
 #include<QGraphicsProxyWidget>
 #include "src/controls/custom_label.hpp"
-#include"../../../controls/int64_spin_box.hpp"
+#include"../../../controls/int_spin_box.hpp"
 #include"../../../core/view/port_view.hpp"
 #include"../../../core/view/node_graphics.hpp"
 namespace Mather {

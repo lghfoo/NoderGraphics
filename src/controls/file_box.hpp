@@ -25,10 +25,11 @@ public:
 
     FileBoxProxy(){
         this->setWidget(file_edit);
-        connect(file_edit, &QLineEdit::textChanged, this, &FileBoxProxy::TextChanged);
+        connect(file_edit, &QLineEdit::textChanged, [=](){
+            auto text = file_edit->text();
+            this->NotifyListeners(&text);
+        });
     }
-signals:
-    void TextChanged(const QString& str);
 private:
     FileBox* file_edit = new FileBox();
 

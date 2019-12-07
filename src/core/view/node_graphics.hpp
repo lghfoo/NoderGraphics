@@ -7,7 +7,11 @@
 #include<QGraphicsSceneWheelEvent>
 #include <QGraphicsGridLayout>
 #include <qsizepolicy.h>
+#include<QLinkedList>
+#include"Noder/src/core/utility/utility.hpp"
 namespace NoderGraphics {
+    template<class Ret, class... Types>
+    using Listener = Noder::Listener<Ret, Types...>;
     using PObject = void*;
     class WidgetProxy : public QGraphicsProxyWidget {
     public:
@@ -28,6 +32,23 @@ namespace NoderGraphics {
         virtual void resizeEvent(QGraphicsSceneResizeEvent *event) override{
             QGraphicsProxyWidget::resizeEvent(event);
         }
+        bool IsBusy(){return is_busy;}
+        void AddValueListener(Listener<void, PObject> value_listener){
+            this->value_listeners.append(value_listener);
+        }
+    protected:
+        bool is_busy = false;
+        void ToggleBusy(){is_busy = !is_busy;}
+        QList<Listener<void, PObject>> value_listeners;
+        void NotifyListeners(PObject value){
+            if(IsBusy())return;
+            ToggleBusy();
+            for(auto listener : value_listeners){
+                listener(value);
+            }
+            ToggleBusy();
+        }
+
     };
 
     class NodeGraphics: public QGraphicsWidget{
@@ -44,7 +65,7 @@ namespace NoderGraphics {
         void NotifyPosChanged(){
             for(auto ui : uis){
                 if(!ui){
-                    printf("UI IS EMPTY\n");
+                    printf("WARNING: UI IS EMPTY\n");
                     continue;
                 }
                 ui->NotifyPosChanged();
@@ -52,7 +73,11 @@ namespace NoderGraphics {
         }
         template<typename T>
         T* GetUI(int id){
-            return static_cast<T*>(uis[id]);
+            auto ret = dynamic_cast<T*>(uis[id]);
+            if(!ret){
+                printf("ERROR: MISMATCHING UI TYPE!\n");
+            }
+            return ret;
         }
         NodeGraphics(){
             this->setFlag(QGraphicsItem::GraphicsItemFlag::ItemIsMovable);

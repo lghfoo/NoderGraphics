@@ -1,5 +1,6 @@
 #pragma once
 #include<QTextEdit>
+#include<QLinkedList>
 #include "../core/view/node_graphics.hpp"
 namespace NoderGraphics {
     class TextEdit:public QTextEdit{
@@ -22,6 +23,11 @@ namespace NoderGraphics {
             pal.setColor(QPalette::Background, Qt::transparent);
             text_edit->setPalette(pal);
             this->setWidget(text_edit);
+
+            QObject::connect(text_edit, &QTextEdit::textChanged, [=](){
+                QString text = text_edit->toPlainText();
+                this->NotifyListeners(&text);
+            });
         }
 
         TextEditProxy() : TextEditProxy(""){

@@ -1,7 +1,7 @@
 #pragma once
 #include"../../../core/view/node_graphics.hpp"
 #include"../../../controls/custom_label.hpp"
-#include"../../../controls/int64_spin_box.hpp"
+#include"../../../controls/int_spin_box.hpp"
 #include"../../../controls/image_view.hpp"
 #include"../../../core/view/port_view.hpp"
 namespace Imager {

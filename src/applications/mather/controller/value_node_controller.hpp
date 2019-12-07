@@ -21,21 +21,40 @@ namespace Mather {
             value_node->GetInputPort()->FlushData(new Number<long long>());
             value_node->GetOutputPort()->FlushData(new Number<long long>());
             // todo: use shared_ptr?
-            input_port_controller = new PortController(value_node->GetInputPort().get(), value_graphics->GetInputPortGraphics());
-            output_port_controller = new PortController(value_node->GetOutputPort().get(), value_graphics->GetOutputPortGraphics());
-            QObject::connect(value_graphics, &Int64ValueNodeGraphics::InputValueChanged, [=](long long value){
-                if(this->IsBusy())return;
-                this->SetBusy(true);
-                value_node->GetInputPort()->UpdateData(&value);
-                this->SetBusy(false);
-            });
+            input_port_controller = new PortController(value_node->GetInputPort().get(),
+                                                       value_graphics->GetUI<PortProxy>(Int64ValueNodeGraphics::INPUT_PORT));
+            output_port_controller = new PortController(value_node->GetOutputPort().get(),
+                                                        value_graphics->GetUI<PortProxy>(Int64ValueNodeGraphics::OUTPUT_PORT));
+            BindingHelper().Bind(this->node_graphics
+                                 ->GetUI<Int64SpinBoxProxy>(Int64ValueNodeGraphics::VALUE_SPIN_BOX),
+                                 value_node->GetInputPort().get());
 
-            value_node->GetInputPort()->AddUpdateDataListener([=](PObject data){
-                if(this->IsBusy())return;
-                this->SetBusy(true);
-                value_graphics->SetInputValue(*static_cast<long long*>(data));
-                this->SetBusy(false);
-            });
+        }
+    };
+
+    class Int32ValueController: public NoderGraphics::NodeController<ValueNode, Int32ValueNodeGraphics>{
+    private:
+        using Node = Noder::Node;
+        using NodeGraphics = NoderGraphics::NodeGraphics;
+        PortController* input_port_controller = nullptr;
+        PortController* output_port_controller = nullptr;
+    public:
+        Int32ValueController(PObject graphics_arg = nullptr,
+                             PObject node_arg = nullptr)
+            :NoderGraphics::NodeController<ValueNode, Int32ValueNodeGraphics> (graphics_arg, node_arg){
+            auto value_graphics = this->node_graphics;
+            auto value_node = this->node;
+            value_node->GetInputPort()->FlushData(new Number<int>());
+            value_node->GetOutputPort()->FlushData(new Number<int>());
+            // todo: use shared_ptr?
+            input_port_controller = new PortController(value_node->GetInputPort().get(),
+                                                       value_graphics->GetUI<PortProxy>(Int32ValueNodeGraphics::INPUT_PORT));
+            output_port_controller = new PortController(value_node->GetOutputPort().get(),
+                                                        value_graphics->GetUI<PortProxy>(Int32ValueNodeGraphics::OUTPUT_PORT));
+            BindingHelper().Bind(this->node_graphics
+                                 ->GetUI<Int32SpinBoxProxy>(Int32ValueNodeGraphics::VALUE_SPIN_BOX),
+                                 value_node->GetInputPort().get());
+
         }
     };
 }

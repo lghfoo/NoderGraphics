@@ -70,7 +70,7 @@ HEADERS += \
     src/controls/file_box.hpp \
     src/controls/histogram_view.hpp \
     src/controls/image_view.hpp \
-    src/controls/int64_spin_box.hpp \
+    src/controls/int_spin_box.hpp \
     src/controls/spin_box_base.hpp \
     src/core/controller/application_controller.hpp \
     src/core/controller/connection_controller.hpp \

@@ -36,4 +36,10 @@ namespace Mather {
     using Int64MultiplyOpNodeController = BinaryOpNodeController<MultiplyOpNode<int64_t>, int64_t, BinaryOpNodeGraphics>;
     using Int64DivideOpNodeController = BinaryOpNodeController<DivideOpNode<int64_t>, int64_t, BinaryOpNodeGraphics>;
     using Int64ModulusOpNodeController = BinaryOpNodeController<ModulusOpNode<int64_t>, int64_t, BinaryOpNodeGraphics>;
+
+    using Int32AddOpNodeController = BinaryOpNodeController<AddOpNode<int32_t>, int32_t, BinaryOpNodeGraphics>;
+    using Int32SubstractOpNodeController = BinaryOpNodeController<SubstractOpNode<int32_t>, int32_t, BinaryOpNodeGraphics>;
+    using Int32MultiplyOpNodeController = BinaryOpNodeController<MultiplyOpNode<int32_t>, int32_t, BinaryOpNodeGraphics>;
+    using Int32DivideOpNodeController = BinaryOpNodeController<DivideOpNode<int32_t>, int32_t, BinaryOpNodeGraphics>;
+    using Int32ModulusOpNodeController = BinaryOpNodeController<ModulusOpNode<int32_t>, int32_t, BinaryOpNodeGraphics>;
 }

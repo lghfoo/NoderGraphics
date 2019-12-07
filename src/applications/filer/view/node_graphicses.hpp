@@ -2,7 +2,7 @@
 #include"../../../core/view/node_graphics.hpp"
 #include"../../../controls/custom_label.hpp"
 #include"../../../controls/file_box.hpp"
-#include"../../../controls/int64_spin_box.hpp"
+#include"../../../controls/int_spin_box.hpp"
 #include"../../../controls/combo_box.hpp"
 #include"../../../core/view/port_view.hpp"
 
