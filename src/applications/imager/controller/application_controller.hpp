@@ -11,6 +11,7 @@
 #include"image_histogram_node_controller.hpp"
 #include"image_node_controller.hpp"
 #include"ppm_fimage_node_controller.hpp"
+#include"node_controlleres.hpp"
 namespace Imager {
     class ApplicationController : public NoderGraphics::ApplicationController{
         using AddNodeHandler = MainView::AddNodeHandler;
@@ -22,6 +23,7 @@ namespace Imager {
             main_view->AddContextAction("Operation/Binaryzation/OTSU", AddOTSUNodeHandler());
             main_view->AddContextAction("Operation/Binaryzation/Kittler", AddKittlerNodeHandler());
             main_view->AddContextAction("Operation/Binaryzation/Bernsen", GetAddNodeHandler<BernsenNodeController>());
+            main_view->AddContextAction("Generate/Noise/Gaussian", GetAddNodeHandler<GaussianNoiseNodeController>());
             main_view->AddContextAction("Histogram", GetAddNodeHandler<ImageHistogramNodeController>());
             main_view->AddContextAction("Mather/Histogram", GetAddNodeHandler<Mather::HistogramValueNodeController>());
             main_view->AddContextAction("Filer/File", GetAddNodeHandler<Filer::SelectFileNodeController>());

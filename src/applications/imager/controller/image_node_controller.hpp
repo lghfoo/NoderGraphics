@@ -29,7 +29,7 @@ namespace Imager {
                if(p_image != nullptr){
                    auto image_view_proxy = value_graphics->GetUI<ImageViewProxy>(ImageNodeGraphics::IMAGE_VIEW);
                    auto image_view = image_view_proxy->GetWidget<ImageView>();
-                   printf("w: %d, h: %d\n", p_image->GetWidth(), p_image->GetHeight());
+//                   printf("w: %d, h: %d\n", p_image->GetWidth(), p_image->GetHeight());
                    QImage image(p_image->GetWidth(), p_image->GetHeight(), QImage::Format_ARGB32);
                    for(int i = 0; i < image.width(); i++){
                        for(int j = 0; j < image.height(); j++){

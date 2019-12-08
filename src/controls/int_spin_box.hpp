@@ -32,6 +32,13 @@ namespace NoderGraphics {
         virtual void StepDown()override{
             step_text = QString::number(step_text.toLongLong() - 1);
         }
+    protected:
+        virtual void keyPressEvent(QKeyEvent* event)override{
+            SpinBoxBase::keyPressEvent(event);
+            if(event->key() == Qt::Key_Enter){
+                emit ValueChanged(this->GetValue());
+            }
+        }
     signals:
         void ValueChanged(long long);
     private:
@@ -77,6 +84,13 @@ namespace NoderGraphics {
         }
         virtual void StepDown()override{
             step_text = QString::number(step_text.toLongLong() - 1);
+        }
+    protected:
+        virtual void keyPressEvent(QKeyEvent* event)override{
+            SpinBoxBase::keyPressEvent(event);
+            if(event->key() == Qt::Key_Enter){
+                emit ValueChanged(this->GetValue());
+            }
         }
     signals:
         void ValueChanged(int);

@@ -389,7 +389,7 @@ public:
         this->update();
     }
 
-    void keyPressEvent(QKeyEvent* event)override{
+    virtual void keyPressEvent(QKeyEvent* event)override{
         if(active_area == Area::VALUE_AREA){
             OnKeyPress(event->key(),
                        event->text(),
