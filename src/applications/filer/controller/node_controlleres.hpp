@@ -102,8 +102,14 @@ namespace Filer {
             }
             {
                 auto number_out_proxy = node_graphics->GetUI<PortProxy>(PNFBG::NUMBER_OUTPUT_PORT);
+                auto number_out_edit = node_graphics->GetUI<LineEditProxy>(PNFBG::NUMBER_OUTPUT_EDIT);
                 auto number_out_port = node->GetOutputPort(PNFBN::NUMBER_OUTPUT);
                 auto number_out_port_controller = new PortController(number_out_port, number_out_proxy);
+                number_out_port->AddFlushDataListener([=](Pointer<Data> value){
+                    if(number_out_edit->IsBusy())return;
+                    auto str = value->ToString().ToStdString();
+                    number_out_edit->GetWidget<LineEdit>()->setText(QString(str.c_str()));
+                });
             }
             {
                 auto number_type_proxy = pick_graphics->GetUI<ComboBoxProxy>(PNFBG::NUMBER_TYPE_BOX);

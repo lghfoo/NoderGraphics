@@ -5,6 +5,7 @@
 #include"../../../controls/int_spin_box.hpp"
 #include"../../../controls/combo_box.hpp"
 #include"../../../core/view/port_view.hpp"
+#include"../../../controls/custom_text_edit.hpp"
 
 namespace Filer {
     using namespace NoderGraphics;
@@ -48,7 +49,7 @@ namespace Filer {
             FORMAT_TYPE_PORT, FORMAT_TYPE_BOX,
             ENDIAN_TYPE_PORT, ENDIAN_TYPE_BOX,
             END_ADDRESS_OUTPUT_PORT,
-            NUMBER_OUTPUT_PORT,
+            NUMBER_OUTPUT_EDIT, NUMBER_OUTPUT_PORT,
             UI_COUNT
         };
         PickNumberFromBufferNodeGraphics(PObject arg = nullptr){
@@ -60,7 +61,7 @@ namespace Filer {
                             .Add(FORMAT_TYPE_PORT, new PortProxy).Add(FORMAT_TYPE_BOX, new ComboBoxProxy).NextRow()
                             .Add(ENDIAN_TYPE_PORT, new PortProxy).Add(ENDIAN_TYPE_BOX, new ComboBoxProxy).NextRow()
                             .Skip().Add(new LabelProxy("End", Qt::AlignRight | Qt::AlignVCenter)).Add(END_ADDRESS_OUTPUT_PORT, new PortProxy).NextRow()
-                            .Skip().Add(new LabelProxy("Number", Qt::AlignRight | Qt::AlignVCenter)).Add(NUMBER_OUTPUT_PORT, new PortProxy).NextRow()
+                            .Skip().Add(NUMBER_OUTPUT_EDIT, new LineEditProxy()).Add(NUMBER_OUTPUT_PORT, new PortProxy).NextRow()
                             .Layout());
             auto nt_box_proxy = GetUI<ComboBoxProxy>(NUMBER_TYPE_BOX);
             auto ft_box_proxy = GetUI<ComboBoxProxy>(FORMAT_TYPE_BOX);

@@ -1,5 +1,6 @@
 #pragma once
 #include<QTextEdit>
+#include<QLineEdit>
 #include<QLinkedList>
 #include "../core/view/node_graphics.hpp"
 namespace NoderGraphics {
@@ -16,12 +17,9 @@ namespace NoderGraphics {
 
     class TextEditProxy : public WidgetProxy{
     public:
-        TextEditProxy(const QString& text, Qt::Alignment alignment = Qt::AlignCenter){
+        TextEditProxy(const QString& text, Qt::Alignment alignment = Qt::AlignLeft){
             auto text_edit = new TextEdit(text);
             text_edit->setAlignment(alignment);
-            auto pal = text_edit->palette();
-            pal.setColor(QPalette::Background, Qt::transparent);
-            text_edit->setPalette(pal);
             this->setWidget(text_edit);
 
             QObject::connect(text_edit, &QTextEdit::textChanged, [=](){
@@ -32,6 +30,22 @@ namespace NoderGraphics {
 
         TextEditProxy() : TextEditProxy(""){
 
+        }
+    };
+
+
+    class LineEdit : public QLineEdit{
+    };
+
+    class LineEditProxy : public WidgetProxy{
+    public:
+        LineEditProxy(){
+            auto line_edit = new LineEdit;
+            this->setWidget(line_edit);
+            connect(line_edit, &QLineEdit::textChanged, [=](){
+                auto text = line_edit->text();
+                this->NotifyListeners(&text);
+            });
         }
     };
 }

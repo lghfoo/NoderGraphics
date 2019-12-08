@@ -14,6 +14,7 @@
 #include"../../controls/histogram_view.hpp"
 #include"../../controls/image_view.hpp"
 #include"../../controls/int_spin_box.hpp"
+
 namespace NoderGraphics {
     using PObject = Noder::PObject;
     using Port = Noder::Port;
@@ -57,6 +58,24 @@ namespace NoderGraphics {
             port->AddUpdateDataListener([=](PObject data){
                 if(proxy->IsBusy())return;
                 proxy->GetWidget<TextEdit>()->setText(QString(static_cast<string*>(data)->c_str()));
+            });
+            return *this;
+        }
+
+        //////////////////////////////// TextEdit ////////////////////////////////
+        BindingHelper& BindFromTo(LineEditProxy* proxy, Port* port){
+            proxy->AddValueListener([=](PObject value){
+                if(port->IsBusy())return;
+                auto str = static_cast<QString*>(value)->toStdString();
+                port->UpdateData(&str);
+            });
+            return *this;
+        }
+
+        BindingHelper& BindFromTo(Port* port, LineEditProxy* proxy){
+            port->AddUpdateDataListener([=](PObject data){
+                if(proxy->IsBusy())return;
+                proxy->GetWidget<LineEdit>()->setText(QString(static_cast<string*>(data)->c_str()));
             });
             return *this;
         }

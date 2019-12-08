@@ -35,20 +35,10 @@ public:
     ComboBoxProxy(){
 //        this->stackBefore(nullptr);
         this->setWidget(combo_box);
-//        QObject::connect(combo_box,
-//                         static_cast<void(ComboBox::*)()>(&ComboBox::MousePress),
-//                         this, [&](){
-//            backup_z_value = this->zValue();
-//            this->setZValue(99999999);
-//        });
-//        QObject::connect(combo_box,
-//                         static_cast<void(ComboBox::*)()>(&ComboBox::MouseRelease),
-//                         this, [&](){
-//            printf("z: %f\n", backup_z_value);
-//            if(backup_z_value != -1){
-//                this->setZValue(backup_z_value);
-//            }
-//        });
+        QObject::connect(combo_box, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), [=](){
+            int index = this->combo_box->currentIndex();
+            this->NotifyListeners(&index);
+        });
     }
     ~ComboBoxProxy(){
         delete combo_box;
