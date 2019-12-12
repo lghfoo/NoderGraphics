@@ -379,6 +379,7 @@ public:
 
     void focusInEvent(QFocusEvent* event)override{
         cursor_timer->start(cursor_flicker_frequency);
+        this->cached_value = this->value_text;
     }
 
     void focusOutEvent(QFocusEvent* event)override{
@@ -722,6 +723,6 @@ private:
 protected:
     QString value_text = "0";
     QString step_text = "1";
-
+    QString cached_value = "";
 };
 

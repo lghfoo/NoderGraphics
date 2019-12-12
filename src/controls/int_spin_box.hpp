@@ -39,6 +39,12 @@ namespace NoderGraphics {
                 emit ValueChanged(this->GetValue());
             }
         }
+        void focusOutEvent(QFocusEvent* event)override{
+            if(this->cached_value == this->value_text){
+                emit ValueChanged(this->GetValue());
+            }
+            SpinBoxBase::focusOutEvent(event);
+        }
     signals:
         void ValueChanged(long long);
     private:
@@ -91,6 +97,13 @@ namespace NoderGraphics {
             if(event->key() == Qt::Key_Enter){
                 emit ValueChanged(this->GetValue());
             }
+        }
+
+        void focusOutEvent(QFocusEvent* event)override{
+            if(this->cached_value != this->value_text){
+                emit ValueChanged(this->GetValue());
+            }
+            SpinBoxBase::focusOutEvent(event);
         }
     signals:
         void ValueChanged(int);
