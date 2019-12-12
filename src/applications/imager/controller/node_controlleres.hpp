@@ -77,6 +77,13 @@ namespace Imager {
                 auto cell_h_controller = new PortController(cell_h_port, cell_h_port_proxy);
                 BindingHelper().Bind(cell_h_port_box, cell_h_port);
             }
+            {
+                auto order_port_proxy = node_graphics->GetUI<PortProxy>(VNG::ORDER_PORT);
+                auto order_port_box = node_graphics->GetUI<Int32SpinBoxProxy>(VNG::ORDER_BOX);
+                auto order_port = node->GetInputPort(VNN::ORDER_INPUT);
+                auto order_controller = new PortController(order_port, order_port_proxy);
+                BindingHelper().Bind(order_port_box, order_port);
+            }
             // width
             {
                 auto width_port_proxy = node_graphics->GetUI<PortProxy>(VNG::WIDTH_PORT);
