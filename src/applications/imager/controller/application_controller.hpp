@@ -25,6 +25,9 @@ namespace Imager {
             main_view->AddContextAction("Operation/Binaryzation/Bernsen", GetAddNodeHandler<BernsenNodeController>());
             main_view->AddContextAction("Generate/Noise/Gaussian", GetAddNodeHandler<GaussianNoiseNodeController>());
             main_view->AddContextAction("Generate/Noise/Voronoi", GetAddNodeHandler<VoronoiNoiseNodeController>());
+            main_view->AddContextAction("Generate/Noise/White", GetAddNodeHandler<WhiteNoiseNodeController>());
+            main_view->AddContextAction("Generate/Noise/Value", GetAddNodeHandler<ValueNoiseNodeController>());
+            main_view->AddContextAction("Generate/Noise/Perlin", GetAddNodeHandler<PerlinNoiseNodeController>());
             main_view->AddContextAction("Histogram", GetAddNodeHandler<ImageHistogramNodeController>());
             main_view->AddContextAction("Mather/Histogram", GetAddNodeHandler<Mather::HistogramValueNodeController>());
             main_view->AddContextAction("Filer/File", GetAddNodeHandler<Filer::SelectFileNodeController>());
