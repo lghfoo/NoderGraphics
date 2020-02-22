@@ -20,7 +20,6 @@ public:
 
     void SetData(const std::vector<int>& data){
         series->clear();
-        series->clear();
         int max = 0;
         for(int i = 0; i < data.size(); i++){
             series->append(i, data[i]);
